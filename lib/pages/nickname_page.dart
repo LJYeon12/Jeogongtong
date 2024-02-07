@@ -37,13 +37,11 @@ class _NicknamePageState extends State<NicknamePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _nicknameController.dispose();
     super.dispose();
   }
