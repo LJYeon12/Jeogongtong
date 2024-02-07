@@ -1,16 +1,6 @@
-# jeogongtong_front
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+models : 이 폴더에는 애플리케이션에서 사용되는 데이터 모델이 포함됩니다.
+pages : 이 폴더에는 애플리케이션의 개별 화면 또는 페이지가 포함되어 있습니다.
+widgets : 이 폴더에는 여러 화면에서 사용되는 재사용 가능한 위젯이 포함되어 있습니다.
+services : 이 폴더에는 API 호출, 데이터 저장소 또는 기타 서비스를 처리하기 위한 클래스가 포함되어 있습니다.
+utils : 이 폴더에는 응용 프로그램 전체에서 사용되는 유틸리티 기능 또는 도우미 클래스가 포함되어 있습니다.
+provider : provider 파일들이 포홤되어 있습니다.
