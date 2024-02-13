@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionsService {
@@ -33,5 +35,10 @@ public class QuestionsService {
     @Transactional
     public void deleteWrite(Long id) {
         questionsRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Object[]> searchKeyword(String keyword) {
+        return questionsRepository.findQuestionsAnswersByKeyword(keyword);
     }
 }
