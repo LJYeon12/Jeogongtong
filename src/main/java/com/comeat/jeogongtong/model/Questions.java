@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.util.List;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Data
@@ -23,4 +25,5 @@ public class Questions{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
 }

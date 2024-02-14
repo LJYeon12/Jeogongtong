@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 @RequiredArgsConstructor
@@ -28,24 +29,25 @@ public class FirebaseAuthService {
         user.setEmail(dto.getEmail());
         userRepository.save(user);
     }
-    public Users AuthService(@RequestBody Map<String, String> payload) {
+    public UserResponseDto AuthService(@RequestBody Map<String, String> payload) {
         try {
             String idToken = payload.get("idToken").toString();//firebase token from front
             FirebaseToken user = firebaseAuth.verifyIdToken(idToken);
             String nickname = payload.get("nickname").toString();
             if(userRepository.findByEmail(user.getEmail())==null){
                 //회원가입
-                UserRequestDto urd = new UserRequestDto(user.getEmail(),nickname);
+                UserRequestDto urd = new UserRequestDto(user.getEmail(),nickname,0,"ion");
                 System.out.println("회원가입 : "+urd.getEmail());
                 saveUser(urd);
-                return userRepository.findByEmail(user.getEmail());
+                UserResponseDto res = new UserResponseDto(userRepository.findByEmail(user.getEmail()));
+                return res;
             }else{
                 //로그인
                 Users login = new Users();
-                login.setEmail(userRepository.findByEmail(user.getEmail()).getEmail());
-                login.setNickname(userRepository.findByNickname(nickname).getNickname());
+                login = userRepository.findByEmail(user.getEmail());
                 System.out.println("로그인 : "+login.getEmail());
-                return login;
+                UserResponseDto res = new UserResponseDto(login);
+                return res;
             }
 
         } catch (FirebaseAuthException e) {

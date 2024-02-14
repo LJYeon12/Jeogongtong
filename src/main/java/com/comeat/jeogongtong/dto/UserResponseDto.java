@@ -13,10 +13,14 @@ public class UserResponseDto {
     private Long id;
     private String email;
     private String nickname;
+    private Integer point;
+    private String tear;
 
     public UserResponseDto(Users user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
+        this.point =user.getPoint();
+        this.tear = user.getTear();
     }
 }
