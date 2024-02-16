@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/constants/colors.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -33,6 +34,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: mainColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 48),
         child: Column(
@@ -82,7 +84,7 @@ class _SplashPageState extends State<SplashPage> {
               ),
             ),
             const SizedBox(
-              height: 5,
+              height: 15,
             ),
             ElevatedButton(
               onPressed: () {
@@ -95,20 +97,6 @@ class _SplashPageState extends State<SplashPage> {
                 "assets/images/kakao_login.svg",
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                signInWithGoogle(context);
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.zero, // 패딩 제거
-              ),
-              child: SvgPicture.asset(
-                "assets/images/naver_login.svg",
-              ),
-            )
           ],
         ),
       ),

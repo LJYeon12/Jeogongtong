@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/firebase_options.dart';
 import 'package:jeogongtong_front/pages/nickname_page.dart';
-import 'package:jeogongtong_front/pages/qna_page.dart';
+import 'package:jeogongtong_front/pages/qna/qna_page.dart';
+import 'package:jeogongtong_front/pages/qna/qna_write.dart';
 import 'package:jeogongtong_front/pages/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:jeogongtong_front/pages/study_detail_page.dart';
-import 'package:jeogongtong_front/pages/study_page.dart';
+import 'package:jeogongtong_front/pages/study/study_detail_page.dart';
+import 'package:jeogongtong_front/pages/study/study_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffF7CCDB))
               .copyWith(background: Colors.white),
         ),
-        home: const QnAPage());
+        home: const SplashPage());
   }
 }

@@ -4,21 +4,21 @@ import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/models/post.dart';
 
 class QnaQuestionApiService {
-  final http.Client httpClient;
-  QnaQuestionApiService({
-    required this.httpClient,
-  });
+  final http.Client httpClient = http.Client();
 
   //<질문방> 질문 게시글 작성
-  void askingWrite(Post post) async {
+  Future<http.Response> askingWrite(Post post) async {
     final Uri uri = Uri(
       scheme: 'http',
+      port: apiPort,
       host: apiHost,
       path: '/questions/asking-write',
     );
 
     try {
-      await httpClient.post(uri, body: post.toJson());
+      http.Response response = await httpClient.post(uri,
+          body: post.toJson(), headers: {'Content-Type': 'application/json'});
+      return response;
     } catch (e) {
       rethrow;
     }

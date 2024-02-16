@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeogongtong_front/constants/colors.dart';
 
 class NicknamePage extends StatefulWidget {
   const NicknamePage({super.key});
@@ -119,7 +120,7 @@ class _NicknamePageState extends State<NicknamePage> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFFFC9AB8), // 텍스트 색상
+                    backgroundColor: buttonColor, // 텍스트 색상
                   ),
                   child: const Text("확인"),
                 ),

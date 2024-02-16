@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/models/post.dart';
 
 class QnAPage extends StatefulWidget {
   const QnAPage({super.key});
@@ -10,7 +11,9 @@ class QnAPage extends StatefulWidget {
 
 class _QnAPageState extends State<QnAPage> {
   final List<String> _tempData = ["수학", "컴퓨터", "영어", "파이썬", "자바", "React"];
+  // Post _sendPost(){
 
+  // }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
