@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jeogongtong_front/pages/nickname_page.dart';
-import 'package:jeogongtong_front/pages/signup_page.dart';
+import 'package:jeogongtong_front/pages/signup/nickname_page.dart';
+import 'package:jeogongtong_front/pages/signup/signup_page.dart';
 import 'package:jeogongtong_front/pages/study/study_page.dart';
 import 'package:jeogongtong_front/provider/auth/auth_state.dart';
 import 'package:jeogongtong_front/provider/signup/signup_state.dart';

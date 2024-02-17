@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/help_page.dart';
+import 'package:jeogongtong_front/pages/home/help_page.dart';
 
 class HomeMyPage extends StatefulWidget {
   const HomeMyPage({super.key});
@@ -23,7 +23,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
           child: AppBar(
             backgroundColor: Colors.white,
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "마이페이지",
               style: TextStyle(fontSize: 18),
             ),
@@ -71,7 +71,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                     _buttonColor2 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HelpPage()),
+                    MaterialPageRoute(builder: (_) => const HelpPage()),
                   );
                 },
                 child: Container(
@@ -87,7 +87,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
             ],
           ),
         ),
-        body: Column(
+        body: const Column(
           children: [
             SizedBox(height: 28),
             Padding(

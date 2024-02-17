@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/firebase_options.dart';
 //import 'package:jeogongtong_front/firebase_options.dart';
-import 'package:jeogongtong_front/pages/home_page.dart';
-import 'package:jeogongtong_front/pages/nickname_page.dart';
+import 'package:jeogongtong_front/pages/home/home_page.dart';
+import 'package:jeogongtong_front/pages/signup/nickname_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_page.dart';
-import 'package:jeogongtong_front/pages/signup_page.dart';
+import 'package:jeogongtong_front/pages/signup/signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:jeogongtong_front/pages/splash_page.dart';
+import 'package:jeogongtong_front/pages/signup/splash_page.dart';
 import 'package:jeogongtong_front/pages/study/study_page.dart';
 import 'package:jeogongtong_front/provider/auth/auth_provider.dart';
 import 'package:jeogongtong_front/provider/auth/auth_state.dart';
@@ -17,20 +18,6 @@ import 'package:jeogongtong_front/service/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
-  }
-}
-
-/*
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -67,8 +54,10 @@ class MyApp extends StatelessWidget {
                 ColorScheme.fromSeed(seedColor: const Color(0xffF7CCDB))
                     .copyWith(background: Colors.white),
           ),
-          home: const QnAPage(),
+          home: const HomePage(),
           routes: {
+            HomePage.routeName: (context) => const HomePage(),
+            QnAPage.routeName: (context) => const QnAPage(),
             SignUpPage.routeName: (context) => const SignUpPage(),
             StudyPage.routeName: (context) => const StudyPage(),
             NicknamePage.routeName: (context) => const NicknamePage()
@@ -76,4 +65,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-*/

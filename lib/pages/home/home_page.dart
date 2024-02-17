@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/help_page.dart';
-import 'package:jeogongtong_front/pages/home_add_page.dart';
-import 'package:jeogongtong_front/pages/home_my_page.dart';
-import 'package:jeogongtong_front/pages/home_search_page.dart';
+import 'package:jeogongtong_front/pages/home/help_page.dart';
+import 'package:jeogongtong_front/pages/home/home_add_page.dart';
+import 'package:jeogongtong_front/pages/home/home_my_page.dart';
+import 'package:jeogongtong_front/pages/home/home_search_page.dart';
 import 'package:jeogongtong_front/pages/models/roomModel.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
+  static const routeName = "/home";
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor1 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeSearchPage()),
+                    MaterialPageRoute(builder: (_) => const HomeSearchPage()),
                   );
                 },
                 child: Container(
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor2 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeAddPage()),
+                    MaterialPageRoute(builder: (_) => const HomeAddPage()),
                   );
                 },
                 child: Container(
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor3 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeMyPage()),
+                    MaterialPageRoute(builder: (_) => const HomeMyPage()),
                   );
                 },
                 child: Container(
@@ -119,26 +120,28 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: [
-            SizedBox(height: 13),
+            const SizedBox(height: 13),
             Expanded(
               child: ListView.builder(
                 itemCount: exampleRoom.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 24),
                       title: Text(
                         exampleRoom[index].name,
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HelpPage()));
+                            builder: (context) => const HelpPage()));
                       });
                 },
               ),
             )
           ],
         ),
+        bottomNavigationBar: const BottomNavigator(),
       ),
     );
   }

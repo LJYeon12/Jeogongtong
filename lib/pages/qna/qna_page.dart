@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
+import 'package:jeogongtong_front/pages/qna/qna_write.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:jeogongtong_front/widgets/question_widget.dart';
 
 class QnAPage extends StatefulWidget {
   const QnAPage({super.key});
-
+  static const routeName = '/qna';
   @override
   State<QnAPage> createState() => _QnAPageState();
 }
@@ -35,24 +37,24 @@ class _QnAPageState extends State<QnAPage> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: _tempData.map((category) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ElevatedButton(onPressed: () {}, child: Text(category)),
-              );
-            }).toList()),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          const SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                  children: _tempData.map((category) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child:
+                      ElevatedButton(onPressed: () {}, child: Text(category)),
+                );
+              }).toList()),
+            ),
+            const SizedBox(
+              height: 35,
+            ),
+            const Column(
               children: [
                 QuestionCard(
                   nickname: "김ㅇㅇ",
@@ -66,19 +68,27 @@ class _QnAPageState extends State<QnAPage> {
                 ),
               ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: FloatingActionButton.extended(
-              onPressed: () {},
-              label: const SizedBox(
-                width: 327,
-                child: Center(child: Text("질문 작성하기")),
-              ),
+            const SizedBox(
+              height: 20,
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const QnaWritePage()),
+                  );
+                },
+                label: const SizedBox(
+                  width: 327,
+                  child: Center(child: Text("질문 작성하기")),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
+      bottomNavigationBar: const BottomNavigator(),
     ));
   }
 }

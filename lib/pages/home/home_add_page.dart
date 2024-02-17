@@ -4,7 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/home_page.dart';
+import 'package:jeogongtong_front/pages/home/home_page.dart';
 import 'package:jeogongtong_front/widgets/count_button.dart';
 
 class HomeAddPage extends StatefulWidget {
@@ -54,7 +54,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
           child: AppBar(
             backgroundColor: Colors.white,
             centerTitle: true,
-            title: Text(
+            title: const Text(
               "방 개설하기",
               style: TextStyle(fontSize: 18),
             ),
@@ -103,7 +103,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   });
                 },
                 child: Container(
-                  padding: EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15),
                   constraints: const BoxConstraints(),
                   child: TextButton(
                     onPressed: () async {
@@ -127,8 +127,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 28),
-                Padding(
+                const SizedBox(height: 28),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Row(
                     children: [
@@ -143,27 +143,27 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2<String>(
                       isExpanded: true,
                       buttonStyleData: ButtonStyleData(
                         height: 48,
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: Color(0xffE3E5E5),
+                            color: const Color(0xffE3E5E5),
                           ),
                         ),
                       ),
-                      iconStyleData: IconStyleData(
+                      iconStyleData: const IconStyleData(
                         icon: Icon(Icons.keyboard_arrow_down_rounded),
                         iconSize: 24,
                       ),
-                      dropdownStyleData: DropdownStyleData(
+                      dropdownStyleData: const DropdownStyleData(
                           maxHeight: 210,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -191,8 +191,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
-                Padding(
+                const SizedBox(height: 16),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Row(
                     children: [
@@ -207,12 +207,12 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Container(
                   child: Form(
-                    key: this.formKey,
+                    key: formKey,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
                         children: [
                           TextFormField(
@@ -225,20 +225,20 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             decoration: InputDecoration(
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
                               hintText: "제목을 입력하세요",
-                              hintStyle: TextStyle(fontSize: 16),
+                              hintStyle: const TextStyle(fontSize: 16),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffE3E5E5))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffE3E5E5))),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 24),
+                                  const EdgeInsets.symmetric(horizontal: 24),
                             ),
                             onSaved: (value) {
                               setState(() {
@@ -254,7 +254,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               return null;
                             },
                           ),
-                          Row(
+                          const Row(
                             children: [
                               Text(
                                 "방 공지사항",
@@ -266,7 +266,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           TextFormField(
                             minLines: 5,
                             maxLines: 5,
@@ -278,19 +278,19 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             decoration: InputDecoration(
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
                               hintText: "공지사항을 입력하세요",
-                              hintStyle: TextStyle(fontSize: 16),
+                              hintStyle: const TextStyle(fontSize: 16),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffE3E5E5))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffE3E5E5))),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
-                              contentPadding: EdgeInsets.symmetric(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
+                              contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 10),
                             ),
                             onSaved: (value) {
@@ -307,8 +307,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 16),
-                          Row(
+                          const SizedBox(height: 16),
+                          const Row(
                             children: [
                               Text(
                                 "사용할 책",
@@ -320,7 +320,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           TextFormField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -330,20 +330,20 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             decoration: InputDecoration(
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
                               hintText: "사용할 책을 입력하세요",
-                              hintStyle: TextStyle(fontSize: 16),
+                              hintStyle: const TextStyle(fontSize: 16),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffE3E5E5))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffE3E5E5))),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffFC9AB8))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFC9AB8))),
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 24),
+                                  const EdgeInsets.symmetric(horizontal: 24),
                             ),
                             onSaved: (value) {
                               setState(() {
@@ -364,8 +364,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
-                Padding(
+                const SizedBox(height: 16),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Row(
                     children: [
@@ -380,27 +380,27 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2<String>(
                       isExpanded: true,
                       buttonStyleData: ButtonStyleData(
                         height: 48,
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: Color(0xffE3E5E5),
+                            color: const Color(0xffE3E5E5),
                           ),
                         ),
                       ),
-                      iconStyleData: IconStyleData(
+                      iconStyleData: const IconStyleData(
                         icon: Icon(Icons.keyboard_arrow_down_rounded),
                         iconSize: 24,
                       ),
-                      dropdownStyleData: DropdownStyleData(
+                      dropdownStyleData: const DropdownStyleData(
                           maxHeight: 210,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -428,8 +428,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
-                Padding(
+                const SizedBox(height: 16),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Row(
                     children: [
@@ -444,20 +444,20 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "질문",
                           style: TextStyle(fontSize: 16),
                         ),
-                        SizedBox(width: 13),
+                        const SizedBox(width: 13),
                         CountButton(counter: 0),
-                        SizedBox(width: 13),
-                        Text(
+                        const SizedBox(width: 13),
+                        const Text(
                           "회,",
                           style: TextStyle(fontSize: 16),
                         ),
@@ -465,20 +465,20 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     )
                   ]),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "답변",
                           style: TextStyle(fontSize: 16),
                         ),
-                        SizedBox(width: 13),
+                        const SizedBox(width: 13),
                         CountButton(counter: 0),
-                        SizedBox(width: 13),
-                        Text(
+                        const SizedBox(width: 13),
+                        const Text(
                           "회",
                           style: TextStyle(fontSize: 16),
                         ),
@@ -486,7 +486,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     )
                   ]),
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
               ],
             ),
           ),
