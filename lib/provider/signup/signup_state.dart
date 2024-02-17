@@ -4,6 +4,7 @@ enum SignupStatus {
   initial,
   submitting,
   success,
+  beforeNickname,
   error,
 }
 

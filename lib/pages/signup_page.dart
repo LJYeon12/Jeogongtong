@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/pages/nickname_page.dart';
 import 'package:jeogongtong_front/provider/signup/signup_provider.dart';
+import 'package:jeogongtong_front/provider/signup/signup_state.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,6 +18,13 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
+    final nicknameState = context.watch<SignupState>();
+
+    if (nicknameState.signupStatus == SignupStatus.beforeNickname) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushNamed(context, NicknamePage.routeName);
+      });
+    }
     return SafeArea(
         child: Scaffold(
       backgroundColor: mainColor,

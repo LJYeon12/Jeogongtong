@@ -4,33 +4,28 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final String id;
   final String nickname;
-  final String email;
-
+  final String idToken;
   const User({
-    required this.id,
+    required this.idToken,
     required this.nickname,
-    required this.email,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, nickname, email];
+  List<Object?> get props => [idToken, nickname];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'nickname': nickname,
-      'email': email,
+      'idToken': idToken,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as String,
       nickname: map['nickname'] as String,
-      email: map['email'] as String,
+      idToken: map['idToken'] as String,
     );
   }
 
@@ -40,14 +35,10 @@ class User extends Equatable {
       User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   User copyWith({
-    String? id,
+    String? idToken,
     String? nickname,
-    String? email,
   }) {
     return User(
-      id: id ?? this.id,
-      nickname: nickname ?? this.nickname,
-      email: email ?? this.email,
-    );
+        nickname: nickname ?? this.nickname, idToken: idToken ?? this.idToken);
   }
 }

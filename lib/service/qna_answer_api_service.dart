@@ -3,10 +3,7 @@ import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/models/post_answer.dart';
 
 class QnaAnswerService {
-  final http.Client httpClient;
-  QnaAnswerService({
-    required this.httpClient,
-  });
+  final http.Client httpClient = http.Client();
 
 //<질문방>의 답변 게시글을 작성
   void answerWrite(Answer answer) async {

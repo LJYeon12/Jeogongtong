@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
+import 'package:jeogongtong_front/widgets/question_widget.dart';
 
 class QnAPage extends StatefulWidget {
   const QnAPage({super.key});
@@ -49,12 +52,19 @@ class _QnAPageState extends State<QnAPage> {
           ),
           const SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Card(
-              child: SizedBox(
-                width: 327,
-                height: 144,
-                child: Text("제목"),
-              ),
+            child: Column(
+              children: [
+                QuestionCard(
+                  nickname: "김ㅇㅇ",
+                  title: "Q.코딩 문제 도와주세요.",
+                  commentCount: "2",
+                ),
+                QuestionCard(
+                  nickname: "박ㅇㅇ",
+                  title: "Q.영어 문제 도와주세요.",
+                  commentCount: "7",
+                ),
+              ],
             ),
           ),
           Align(

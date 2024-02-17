@@ -2,11 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/provider/signup/signup_provider.dart';
+import 'package:jeogongtong_front/service/auth_service.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 
 class NicknamePage extends StatefulWidget {
   const NicknamePage({super.key});
-
+  static const String routeName = '/nickname';
   @override
   State<NicknamePage> createState() => _NicknamePageState();
 }
@@ -14,26 +19,28 @@ class NicknamePage extends StatefulWidget {
 class _NicknamePageState extends State<NicknamePage> {
   final TextEditingController _nicknameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
-  String _textFormFieldValue = '';
+  AuthService authService = AuthService();
+
+  final String _textFormFieldValue = '';
+  late String firebaseUserToken;
+  String email = '';
 
   void _submit() async {
-    setState(() {
-      _autovalidateMode = AutovalidateMode.always;
-    });
-    final form = _formKey.currentState;
-    if (form == null || !form.validate()) return;
+    try {
+      final user = context.read<fbAuth.User?>();
+      if (user == null) {
+        // handle the case where user is null
+        return;
+      }
+      print('nickname: $_textFormFieldValue');
+      firebaseUserToken = (await user.getIdToken())!;
+      if (!mounted) return;
 
-    form.save();
-
-    print('nickname : $form');
-    // try {
-    //   await context
-    //       .read<SigninProvider>()
-    //       .signin(email: _email!, password: _password!);
-    // } on CustomError catch (e) {
-    //   errorDialog(context, e);
-    // }
+      await context.read<SignupProvider>().nicknameSignUp(
+          nickname: _textFormFieldValue, token: firebaseUserToken);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -87,16 +94,7 @@ class _NicknamePageState extends State<NicknamePage> {
                     filled: false,
                     labelText: '닉네임',
                   ),
-                  onSaved: (value) {
-                    setState(() {
-                      _textFormFieldValue = value!;
-                      print("닉네임 : $_textFormFieldValue");
-                    });
-                  },
                   textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (String nickname) {
-                    print('닉네임 : $nickname');
-                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return '1자 이상 입력해주세요.';
@@ -113,10 +111,7 @@ class _NicknamePageState extends State<NicknamePage> {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    final formKeyState = _formKey.currentState!;
-                    if (formKeyState.validate()) {
-                      formKeyState.save();
-                    }
+                    _submit();
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
