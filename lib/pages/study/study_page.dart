@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/provider/auth/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class StudyPage extends StatefulWidget {
   const StudyPage({super.key});
-
+  static const String routeName = '/study';
   @override
   State<StudyPage> createState() => _StudyPageState();
 }
