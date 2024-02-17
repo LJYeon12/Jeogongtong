@@ -43,7 +43,7 @@ class QuestionCard extends StatelessWidget {
                       children: [
                         const Icon(Icons.comment),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(commentCount),
                       ],
