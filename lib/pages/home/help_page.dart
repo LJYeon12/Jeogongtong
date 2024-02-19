@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/widgets/grade_theme.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key});
@@ -87,7 +88,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xff3D3E3E),
+                        color: ColorStyles.Iron,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -105,7 +106,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xffA97142),
+                        color: ColorStyles.Bronze,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -123,7 +124,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xffDCDCDC),
+                        color: ColorStyles.Silver,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -141,7 +142,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xffE9B139),
+                        color: ColorStyles.Gold,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -159,7 +160,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xff3FEFD0),
+                        color: ColorStyles.Platinum,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -177,7 +178,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xffD0F6FF),
+                        color: ColorStyles.Diamond,
                       ),
                       SizedBox(width: 9),
                       Text(
@@ -195,7 +196,7 @@ class _HelpPageState extends State<HelpPage> {
                       Icon(
                         Icons.local_police,
                         size: 24,
-                        color: Color(0xffE0115F),
+                        color: ColorStyles.Legend,
                       ),
                       SizedBox(width: 9),
                       Text(

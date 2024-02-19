@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/pages/home/search_result_page.dart';
 
 class HomeSearchPage extends StatefulWidget {
   const HomeSearchPage({super.key});
@@ -11,7 +12,18 @@ class HomeSearchPage extends StatefulWidget {
 class _HomeSearchPageState extends State<HomeSearchPage> {
   bool _showIcon = false;
   Color _buttonColor = const Color(0xff131214);
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+
+  //예시 값
+  List<String> recentSearches = ["알고리즘", "토익"];
+
+  void addRecentSearch(String searchQuery) {
+    if (searchQuery.isNotEmpty) {
+      setState(() {
+        recentSearches.insert(0, searchQuery);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +79,18 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
               child: Center(
                 child: TextField(
                   controller: _controller,
+                  onSubmitted: (text) {
+                    if (text.isNotEmpty) {
+                      addRecentSearch(text);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SearchResultPage(searchQuery: text),
+                        ),
+                      );
+                    }
+                  },
                   onChanged: (text) {
                     setState(() {
                       _showIcon = text.isNotEmpty;
@@ -106,6 +130,32 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
               ),
             ),
           ),
+        ),
+        body: Column(
+          children: [
+            SizedBox(height: 24),
+            Row(
+              children: [
+                SizedBox(width: 24),
+                Text(
+                  "최근 검색",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: recentSearches.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                    title: Text(recentSearches[index]),
+                  );
+                },
+              ),
+            )
+          ],
         ),
       ),
     );

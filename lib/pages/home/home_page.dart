@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/help_page.dart';
-import 'package:jeogongtong_front/pages/home_add_page.dart';
-import 'package:jeogongtong_front/pages/home_my_page.dart';
-import 'package:jeogongtong_front/pages/home_search_page.dart';
-import 'package:jeogongtong_front/pages/models/roomModel.dart';
+
+import 'package:jeogongtong_front/pages/home/home_add_page.dart';
+import 'package:jeogongtong_front/pages/home/home_my_page.dart';
+import 'package:jeogongtong_front/pages/home/home_search_page.dart';
+import 'package:jeogongtong_front/models/api_adapter.dart';
+import 'package:jeogongtong_front/models/study_room_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:jeogongtong_front/pages/home/room_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,12 +22,36 @@ class _HomePageState extends State<HomePage> {
   Color _buttonColor1 = const Color(0xff131214);
   Color _buttonColor2 = const Color(0xff131214);
   Color _buttonColor3 = const Color(0xff131214);
+  List<String> nameExample = ['알고리즘', 'SQLD', '코딩테스트 준비'];
 
-  //예시 리스트
-  static List<String> roomName = ['알고리즘', 'SQLD', '코딩테스트 준비'];
-  static List<String> roomPage = ['room1', 'room2', 'room3'];
-  final List<Room> exampleRoom = List.generate(
-      roomName.length, (index) => Room(roomName[index], roomPage[index]));
+  // ignore: non_constant_identifier_names
+  void addStudyName(String study_name) {
+    setState(() {
+      nameExample.add(study_name);
+    });
+  }
+
+  //전달받은 값
+  List<int> studyIds = [];
+  List<String> names = [];
+  bool isLoading = false;
+  _fetchData() async {
+    setState(() {
+      isLoading = true;
+    });
+    final response = await http.get(Uri.parse('http://localhost:8080/'));
+    if (response.statusCode == 200) {
+      final List<StudyRoom> myroom = parseRoom(utf8.decode(response.bodyBytes));
+
+      setState(() {
+        final List<int> studyIds = myroom.map((room) => room.studyId).toList();
+        final List<String> names = myroom.map((room) => room.name).toList();
+        isLoading = false;
+      });
+    } else {
+      throw Exception('Failed!');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +101,16 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor2 = const Color(0xffFC9AB8);
                   });
                 },
-                onTapUp: (_) {
+                onTapUp: (_) async {
                   setState(() {
                     _buttonColor2 = const Color(0xff131214);
                   });
-                  Navigator.of(context).push(
+                  final study_name = await Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => HomeAddPage()),
                   );
+                  if (study_name != null) {
+                    addStudyName(study_name);
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.only(right: 10),
@@ -122,20 +154,39 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 13),
             Expanded(
               child: ListView.builder(
-                itemCount: exampleRoom.length,
+                itemCount: nameExample.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 24),
                       title: Text(
-                        exampleRoom[index].name,
+                        nameExample[index],
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HelpPage()));
+                            builder: (context) => RoomPage()));
                       });
                 },
               ),
+              /*
+              child: ListView.builder(
+                itemCount: names.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                      title: Text(
+                        names[index],
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onTap: () {
+                        int selectedStudyId = studyIds[index];
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                RoomPage(studyId: selectedStudyId)));
+                      });
+                },
+              ),
+              */
             )
           ],
         ),
