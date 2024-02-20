@@ -18,8 +18,19 @@ class _StudyPageState extends State<StudyPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: const Text("공부하기"),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(48),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          title: const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: Text(
+              "공부하기",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          titleSpacing: 0,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -34,7 +45,6 @@ class _StudyPageState extends State<StudyPage> {
           itemCount: 3,
         ),
       ),
-      bottomNavigationBar: const BottomNavigator(),
     ));
   }
 }

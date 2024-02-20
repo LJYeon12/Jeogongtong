@@ -14,6 +14,7 @@ import 'package:jeogongtong_front/provider/auth/auth_state.dart';
 import 'package:jeogongtong_front/provider/signup/signup_provider.dart';
 import 'package:jeogongtong_front/provider/signup/signup_state.dart';
 import 'package:jeogongtong_front/service/auth_service.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 
@@ -45,22 +46,22 @@ class MyApp extends StatelessWidget {
             create: (context) => SignupProvider()),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme:
-                ColorScheme.fromSeed(seedColor: const Color(0xffF7CCDB))
-                    .copyWith(background: Colors.white),
-          ),
-          home: const HomePage(),
-          routes: {
-            HomePage.routeName: (context) => const HomePage(),
-            QnAPage.routeName: (context) => const QnAPage(),
-            SignUpPage.routeName: (context) => const SignUpPage(),
-            StudyPage.routeName: (context) => const StudyPage(),
-            NicknamePage.routeName: (context) => const NicknamePage()
-          }),
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffF7CCDB))
+              .copyWith(background: Colors.white),
+        ),
+        home: const BottomNavigator(),
+        routes: {
+          HomePage.routeName: (context) => const HomePage(),
+          QnAPage.routeName: (context) => const QnAPage(),
+          SignUpPage.routeName: (context) => const SignUpPage(),
+          StudyPage.routeName: (context) => const StudyPage(),
+          NicknamePage.routeName: (context) => const NicknamePage()
+        },
+      ),
     );
   }
 }
