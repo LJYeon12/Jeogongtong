@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/pages/home/java_study_example.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String searchQuery;
@@ -18,6 +19,9 @@ class _SearchResultPageState extends State<SearchResultPage> {
     super.initState();
     _controller.text = widget.searchQuery;
   }
+
+//예시
+  List<String> javaEx = ["자바 기초", "자바(실습 포함)", "Java(자바) 고급 스터디"];
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +119,26 @@ class _SearchResultPageState extends State<SearchResultPage> {
           ),
         ),
         body: Column(
-          children: [],
+          children: [
+            SizedBox(height: 13),
+            Expanded(
+              child: ListView.builder(
+                itemCount: javaEx.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                      title: Text(
+                        javaEx[index],
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => JavaStudyExample()));
+                      });
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

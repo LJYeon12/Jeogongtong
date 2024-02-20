@@ -12,7 +12,8 @@ import 'dart:convert';
 import 'package:jeogongtong_front/pages/home/room_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String? name;
+  const HomePage({Key? key, this.name}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,6 +30,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       nameExample.add(study_name);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.name != null) {
+      nameExample.add(widget.name!);
+    }
   }
 
   //전달받은 값
