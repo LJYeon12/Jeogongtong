@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String searchQuery;
-  const SearchResultPage({required this.searchQuery});
+  const SearchResultPage({Key? key, required this.searchQuery})
+      : super(key: key);
 
   @override
   State<SearchResultPage> createState() => _SearchResultPageState();

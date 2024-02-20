@@ -185,8 +185,8 @@ class _HomeMyPageState extends State<HomeMyPage> {
                   child: Row(
                     children: [
                       Text(
-                        "ㅁㅁㅁㅁ",
-                        //"$_nickname",
+                        //"ㅁㅁㅁㅁ",
+                        "$_nickname",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
@@ -250,6 +250,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_) => PointPage()),
+                          //builder: (_) => PointPage(score: _score)),
                         );
                       },
                       child: Row(
