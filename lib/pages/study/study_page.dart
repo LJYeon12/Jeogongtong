@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/provider/auth/auth_state.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:provider/provider.dart';
 
 class StudyPage extends StatefulWidget {
@@ -19,7 +20,6 @@ class _StudyPageState extends State<StudyPage> {
         child: Scaffold(
       appBar: AppBar(
         title: const Text("공부하기"),
-        backgroundColor: mainColor,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -34,6 +34,7 @@ class _StudyPageState extends State<StudyPage> {
           itemCount: 3,
         ),
       ),
+      bottomNavigationBar: const BottomNavigator(),
     ));
   }
 }

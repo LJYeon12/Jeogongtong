@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
+import 'package:jeogongtong_front/pages/signup/nickname_page.dart';
 import 'package:jeogongtong_front/provider/signup/signup_provider.dart';
 import 'package:jeogongtong_front/provider/signup/signup_state.dart';
 import 'package:provider/provider.dart';

@@ -4,17 +4,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/pages/home/home_add_page.dart';
 import 'package:jeogongtong_front/pages/home/home_my_page.dart';
 import 'package:jeogongtong_front/pages/home/home_search_page.dart';
+import 'package:jeogongtong_front/pages/home/java_study_example.dart';
 import 'package:jeogongtong_front/models/api_adapter.dart';
 import 'package:jeogongtong_front/models/study_room_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:jeogongtong_front/pages/home/room_page.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 
 class HomePage extends StatefulWidget {
   final String? name;
   const HomePage({Key? key, this.name}) : super(key: key);
-
+  static const routeName = "/home";
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -91,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor1 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeSearchPage()),
+                    MaterialPageRoute(builder: (_) => const HomeSearchPage()),
                   );
                 },
                 child: Container(
@@ -115,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor2 = const Color(0xff131214);
                   });
                   final study_name = await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeAddPage()),
+                    MaterialPageRoute(builder: (_) => const HomeAddPage()),
                   );
                   if (study_name != null) {
                     addStudyName(study_name);
@@ -142,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor3 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeMyPage()),
+                    MaterialPageRoute(builder: (_) => const HomeMyPage()),
                   );
                 },
                 child: Container(
@@ -160,13 +162,14 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: [
-            SizedBox(height: 13),
+            const SizedBox(height: 13),
             Expanded(
               child: ListView.builder(
                 itemCount: nameExample.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 24),
                       title: Text(
                         nameExample[index],
                         style: TextStyle(fontSize: 16),
@@ -199,6 +202,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
+        bottomNavigationBar: const BottomNavigator(),
       ),
     );
   }
