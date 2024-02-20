@@ -1,20 +1,50 @@
 spring:
+  cloud:
+    gcp:
+      project-id: comeat2024
+      sql:
+        enabled: true
+        database-name: jeogongtongDB
+        instance-connection-name: comeat2024:asia-northeast3:jeogongtong
+      storage:
+        credentials:
+          location: file:/comeat2024-212280a1b64c.json
+          scopes: https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/sqlservice.admin
+
+
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    show-sql: true
-  h2:
-    console:
-      enabled: true
+    url: jdbc:mysql://34.47.89.182:3306/jeogongtongDB?useSSL=false&serverTimezone=UTC
+    username: comeat
+    password: tkqwlf0000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
+    generate-ddl: true
     properties:
       hibernate:
+        format_sql: true
+        show-sql: true
         ddl-auto: update
-        dialect: org.hibernate.dialect.H2Dialect
-        # none
-    #database-platform: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+#    show-sql: true
+#  h2:
+#    console:
+#      enabled: true
+#  jpa:
+#    properties:
+#      hibernate:
+#        ddl-auto: update
+#        dialect: org.hibernate.dialect.H2Dialect
+#
+#
+
 #
 #  security:
 #    oauth2:
