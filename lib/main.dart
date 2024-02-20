@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/firebase_options.dart';
-//import 'package:jeogongtong_front/firebase_options.dart';
 import 'package:jeogongtong_front/pages/home/home_page.dart';
 import 'package:jeogongtong_front/pages/signup/nickname_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_page.dart';

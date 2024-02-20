@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +10,8 @@ import 'package:jeogongtong_front/pages/home/home_page.dart';
 import 'package:jeogongtong_front/widgets/count_button.dart';
 
 class HomeAddPage extends StatefulWidget {
-  const HomeAddPage({super.key});
+  final void Function(String)? onStudyNameAdded;
+  const HomeAddPage({Key? key, this.onStudyNameAdded}) : super(key: key);
 
   @override
   State<HomeAddPage> createState() => _HomeAddPageState();
@@ -43,6 +46,40 @@ class _HomeAddPageState extends State<HomeAddPage> {
   //카운트 버튼
   int ranker_ask = 0;
   int ranker_answer = 0;
+
+//POST
+  final client = http.Client();
+  Future<void> _sendData() async {
+    final url = Uri.parse('http://localhost:8080/study-clubs/regist');
+    final data = {
+      'intro': intro,
+      'category': catalog,
+      'settingPeriod': setting_period,
+      'name': study_name,
+      'book': book,
+      'rankerAsk': ranker_ask,
+      'rankerAnswer': ranker_answer,
+    };
+    /*
+    try {
+      await client.post(url, body: jsonEncode(data));
+    } catch (e) {
+      rethrow;
+    }
+    */
+  }
+
+  void disposeClient() {
+    client.close();
+  }
+
+  void _showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('방이 개설되었습니다'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +147,11 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       if (formKey.currentState != null) {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
+                          await _sendData();
+                          if (context.mounted) {
+                            _showSnackbar(context);
+                            Navigator.pop(context, study_name);
+                          }
                         }
                       }
                     },
@@ -204,6 +246,14 @@ class _HomeAddPageState extends State<HomeAddPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(width: 5),
+                      Text(
+                        "(방 정원은 200명으로 제한됩니다.)",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xff6C7072),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -455,7 +505,9 @@ class _HomeAddPageState extends State<HomeAddPage> {
                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(width: 13),
-                        CountButton(counter: 0),
+                        CountButton(
+                          counter: ranker_ask,
+                        ),
                         const SizedBox(width: 13),
                         const Text(
                           "회,",
@@ -476,7 +528,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(width: 13),
-                        CountButton(counter: 0),
+                        CountButton(counter: ranker_answer),
                         const SizedBox(width: 13),
                         const Text(
                           "회",
