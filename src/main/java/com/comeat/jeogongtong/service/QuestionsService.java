@@ -41,4 +41,8 @@ public class QuestionsService {
     public List<Object[]> searchKeyword(String keyword) {
         return questionsRepository.findQuestionsAnswersByKeyword(keyword);
     }
+    @Transactional
+    public List<Object[]> searchAll() {
+        return questionsRepository.findQuestionsAndAnswers();
+    }
 }

@@ -22,6 +22,13 @@ public class QuestionsController {
     private final AnswersService answersService;
 
 
+    //질문답변 전체 조회
+    @GetMapping("/all")
+    public List<Object[]> searchAll() {
+        List<Object[]> result = questionsService.searchAll();
+        return result;
+    }
+
     //질문
     @PostMapping("/asking-write")
     public ResponseEntity<QuestionResponseDto> QuestionWrite(@RequestBody QuestionRequestDto requestDto){
@@ -55,7 +62,7 @@ public class QuestionsController {
 
     //통합검색
     @GetMapping("/search/{keyword}")
-    public List<Object[]> searchAll(@PathVariable String keyword) {
+    public List<Object[]> searchKeyword(@PathVariable String keyword) {
         List<Object[]> result = questionsService.searchKeyword(keyword);
         return result;
     }

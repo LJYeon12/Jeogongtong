@@ -22,7 +22,9 @@ public class Answers{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
-    @ManyToOne
+
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "asking_id")
     private Questions questions;
 }
