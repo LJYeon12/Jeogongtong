@@ -12,9 +12,9 @@ Through JeoGongTong, society gains important benefits that can improve accessibi
 ## 🗒  Our Goal
 ![UN4,10](https://github.com/Comeat-Solution-Challenge-2024/jeogongtong_BACK/assets/102432331/0dceb469-168d-4ff4-9f54-9a0743396623)
 
-Jecongtong aims to contribute to the UN Sustainable Development Goals (SDGs) 4. Quality Education and 10. Reduced Inequalities. This app provides a space where learners can collaborate and share knowledge, thereby increasing access to education. Through a game-like ranking system, it adds fun to learning, and its question forum allows for support without the need for a teacher.
+Jeogongtong aims to contribute to the UN Sustainable Development Goals (SDGs) 4. Quality Education and 10. Reduced Inequalities. This app provides a space where learners can collaborate and share knowledge, thereby increasing access to education. Through a game-like ranking system, it adds fun to learning, and its question forum allows for support without the need for a teacher.
 
-Jecongtong fosters a community among learners, helping everyone to build knowledge on an equal footing. Our primary goal is to enable personal growth through high-quality education for all and to create a more inclusive society by addressing educational inequalities.
+Jeogongtong fosters a community among learners, helping everyone to build knowledge on an equal footing. Our primary goal is to enable personal growth through high-quality education for all and to create a more inclusive society by addressing educational inequalities.
 <br/>
 
 ## 🛠  Project Architecure
