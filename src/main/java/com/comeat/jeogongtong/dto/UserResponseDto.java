@@ -17,7 +17,7 @@ public class UserResponseDto {
     private String tear;
 
     public UserResponseDto(Users user) {
-        this.id = user.getId();
+        this.id = user.getUserId();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
         this.point =user.getPoint();

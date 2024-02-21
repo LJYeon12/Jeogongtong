@@ -1,5 +1,6 @@
 package com.comeat.jeogongtong.model;
 
+import com.comeat.jeogongtong.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,13 +17,21 @@ import static lombok.AccessLevel.PROTECTED;
 public class Users {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long userId;
     private String email;
     private String nickname;
     private Integer point;
     private String tear;
 
-    public void setPoint(int point) {
+    public static Users toUsers(UserDto userDto){
+        Users users = new Users();
+        users.setNickname(userDto.getNickname());
+        users.setPoint(userDto.getPoint());
+        users.setEmail(userDto.getEmail());
+        return users;
+    }
+    public String setTear(int point) {
         this.point = point;
         if (point <= 300) {
             this.tear = "ion";
@@ -39,5 +48,7 @@ public class Users {
         }else if (point <= 300000) {
             this.tear = "legend";
         }
+
+        return tear;
     }
 }

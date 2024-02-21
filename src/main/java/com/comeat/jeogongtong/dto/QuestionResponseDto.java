@@ -28,7 +28,7 @@ public class QuestionResponseDto {
                 .category(questions.getCategory())
                 .regiDate(questions.getRegiDate())
                 .photoUrl(questions.getPhotoUrl())
-                .userId(questions.getUsers().getId())
+                .userId(questions.getUsers().getUserId())
                 .build();
     }
 

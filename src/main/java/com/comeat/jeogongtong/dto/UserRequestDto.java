@@ -21,7 +21,7 @@ public class UserRequestDto {
         Users user = new Users();
         user.setEmail(this.email);
         user.setNickname(this.nickname);
-        user.setTear(this.tear);
+        user.setTear(this.point);
         user.setPoint(this.point);
         return user;
     }

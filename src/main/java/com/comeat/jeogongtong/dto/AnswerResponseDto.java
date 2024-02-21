@@ -30,7 +30,7 @@ public class AnswerResponseDto {
                 .category(answers.getCategory())
                 .regiDate(answers.getRegiDate())
                 .photoUrl(answers.getPhotoUrl())
-                .userId(answers.getUsers().getId())
+                .userId(answers.getUsers().getUserId())
                 .asking_id(answers.getQuestions().getId())
                 .build();
     }
