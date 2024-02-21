@@ -10,7 +10,7 @@ Through JeoGongTong, society gains important benefits that can improve accessibi
 <br/>
 
 ## 🗒  Our Goal
-
+![ourGoal](C:\Users\juyeo\Downloads\UN4,10.png)
 
 <br/>
 
