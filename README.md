@@ -1,4 +1,4 @@
-image
+![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/jeogongtong_BACK/assets/102432331/f697eef7-e7af-4807-a4f7-fe362a5f5cab)
 
 <br/>
 JeoGongTong is an app that provides an environment to study for people who do not have an environment to study or have difficulty studying on their own.
