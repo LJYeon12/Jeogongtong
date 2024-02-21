@@ -10,6 +10,7 @@ Through JeoGongTong, society gains important benefits that can improve accessibi
 <br/>
 
 ## 🗒  Our Goal
+![UN4,10](https://github.com/Comeat-Solution-Challenge-2024/jeogongtong_BACK/assets/102432331/0dceb469-168d-4ff4-9f54-9a0743396623)
 
 
 <br/>
