@@ -1,12 +1,58 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/pages/study/study_detail_page.dart';
 import 'package:jeogongtong_front/provider/auth/auth_state.dart';
 import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
+final user = FirebaseAuth.instance.currentUser;
+//Get
+Future<Map<String, dynamic>> study() async {
+  final Uri uri = Uri(
+    scheme: 'http',
+    port: apiPort,
+    host: apiHost,
+    path: '/',
+  );
+
+  final String? idToken = await user?.getIdToken();
+  final response = await http.get(uri, headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${idToken!}'
+  });
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+    Map<String, dynamic> studyroom = jsonDecode(responseBody);
+    Map<String, dynamic> mu = studyroom['user'];
+    final n = studyroom['myStudy'];
+    int userId = mu['userId'];
+    final name = [];
+    final studyId = [];
+    for (var index in n) {
+      name.add(index['name']);
+      studyId.add(index['studyId']);
+    }
+    print(studyId);
+    Map<String, dynamic> result = {
+      "userId": userId,
+      "studyName": name,
+      "studyId": studyId,
+    };
+    return result;
+  } else {
+    throw Exception('Failed!');
+  }
+}
 
 class StudyPage extends StatefulWidget {
   const StudyPage({super.key});
@@ -16,7 +62,6 @@ class StudyPage extends StatefulWidget {
 }
 
 class _StudyPageState extends State<StudyPage> {
-  List<String> nameExample = ["알고리즘", "Java", "토익 700점 목표"];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,64 +81,68 @@ class _StudyPageState extends State<StudyPage> {
             titleSpacing: 0,
           ),
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 13),
-            Expanded(
-              child: ListView.builder(
-                itemCount: nameExample.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                    title: Text(
-                      nameExample[index],
-                      style: TextStyle(fontSize: 16),
+        body: FutureBuilder(
+          future: study(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Center(
+                  child: Text(
+                    '스터디방을 불러오던 중 오류가 났습니다.',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              );
+            } else if ((snapshot.data)!.isEmpty) {
+              return const Center(
+                child: Text(
+                  '현재 참여한 스터디방이 없습니다.',
+                  style: TextStyle(fontSize: 20),
+                ),
+              );
+            } else {
+              Map<String, dynamic> hi = snapshot.data!;
+              List<dynamic> room = hi['studyName'];
+              int id = hi['userId'];
+              List<dynamic> sid = hi['studyId'];
+              return Column(
+                children: [
+                  const SizedBox(height: 13),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: room.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 24),
+                          title: Text(
+                            room[index].toString(),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          trailing: SvgPicture.asset('assets/images/play.svg'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => StudyDetailPage(
+                                userId: id,
+                                studyId: sid[index],
+                                name: room[index],
+                              ),
+                            ));
+                          },
+                        );
+                      },
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => StudyDetailPage()));
-                    },
-                    trailing: SvgPicture.asset("assets/images/play.svg"),
-                  );
-                },
-              ),
-              /*
-              child: ListView.builder(
-                itemCount: names.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 24),
-                      title: Text(
-                        names[index],
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      onTap: () {
-                        int selectedStudyId = studyIds[index];
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                RoomPage(studyId: selectedStudyId)));
-                      });
-                },
-              ),
-              */
-            )
-          ],
-        ),
-        /*
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {},
-              title: const Text('알고리즘'),
-              trailing: const Icon(Icons.play_arrow_outlined),
-            );
+                  ),
+                ],
+              );
+            }
           },
-          itemCount: 3,
         ),
-      ),
-      */
       ),
     );
   }

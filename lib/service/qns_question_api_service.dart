@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/models/post.dart';
@@ -17,7 +19,8 @@ class QnaQuestionApiService {
 
     try {
       http.Response response = await httpClient.post(uri,
-          body: post.toJson(), headers: {'Content-Type': 'application/json'});
+          body: jsonEncode(post),
+          headers: {'Content-Type': 'application/json'});
       return response;
     } catch (e) {
       rethrow;

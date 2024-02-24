@@ -8,14 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/constants/api.dart';
-import 'package:jeogongtong_front/models/user_room.dart';
 import 'package:jeogongtong_front/widgets/count_button.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 
 class HomeAddPage extends StatefulWidget {
-  const HomeAddPage({super.key});
-
+  final Map<String, dynamic> user;
+  const HomeAddPage({Key? key, required this.user}) : super(key: key);
   @override
   State<HomeAddPage> createState() => _HomeAddPageState();
 }
@@ -37,7 +36,20 @@ class _HomeAddPageState extends State<HomeAddPage> {
     "기타"
   ];
   String catalog = "";
-  final _deadlineList = ["2주", "3주", "4주", "5주", "6주", "7주", "8주"];
+  final _deadlineList = [
+    "${DateTime.now().year}-01",
+    "${DateTime.now().year}-02",
+    "${DateTime.now().year}-03",
+    "${DateTime.now().year}-04",
+    "${DateTime.now().year}-05",
+    "${DateTime.now().year}-06",
+    "${DateTime.now().year}-07",
+    "${DateTime.now().year}-08",
+    "${DateTime.now().year}-09",
+    "${DateTime.now().year}-10",
+    "${DateTime.now().year}-11",
+    "${DateTime.now().year}-12",
+  ];
   String setting_period = "";
 
   //텍스트 폼 필드
@@ -50,7 +62,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
   int ranker_ask = 0;
   int ranker_answer = 0;
 
-  late UserRoom currentUser;
+  //late UserRoom currentUser;
 
   @override
   void dispose() {
@@ -74,7 +86,6 @@ class _HomeAddPageState extends State<HomeAddPage> {
     };
 
     final data = {
-      /*
       'intro': intro,
       'category': catalog,
       'settingPeriod': setting_period,
@@ -82,21 +93,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
       'book': book,
       'rankerAsk': ranker_ask,
       'rankerAnswer': ranker_answer,
-      'user': currentUser.toMap(),
-      */
-      "name": "n번째 스터디",
-      "book": "Java의 정석",
-      "category": "프로그래밍",
-      "settingPeriod": "2023-12",
-      "rankerAsk": 5,
-      "rankerAnswer": 2,
-      "intro": "Java 스터디 모임입니다.",
-      "users": {
-        "id": 3,
-        "email": "eliyeon@sookmyung.ac.kr",
-        "nickname": "아아",
-        "point": "50000"
-      }
+      'users': widget.user,
     };
     try {
       final response =
@@ -462,7 +459,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   child: Row(
                     children: [
                       Text(
-                        "공부 기한",
+                        "스터디방 마감 기한",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
@@ -498,7 +495,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             color: Colors.white,
                           )),
                       hint: const Text(
-                        "공부할 기한을 선택하세요",
+                        "마감 기한을 선택하세요",
                         style: TextStyle(fontSize: 16),
                       ),
                       value: setting_period.isNotEmpty ? setting_period : null,

@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
   Color _buttonColor2 = const Color(0xff131214);
   Color _buttonColor3 = const Color(0xff131214);
   int id = 0;
+  late Map<String, dynamic> useer;
 
   @override
   void initState() {
@@ -82,9 +83,20 @@ class _HomePageState extends State<HomePage> {
       print(responseBody);
       Map<String, dynamic> studyroom = jsonDecode(responseBody);
       Map<String, dynamic> mu = studyroom['user'];
+      int i = mu['userId'];
+      String e = mu['email'];
+      String n = mu['nickname'];
+      int p = mu['point'];
+      Map<String, dynamic> ef = {
+        'id': i,
+        'email': e,
+        'nickname': n,
+        'point': p,
+      };
       print(mu);
       setState(() {
         id = mu['userId'];
+        useer = ef;
       });
     } else {
       throw Exception('Failed!');
@@ -145,7 +157,8 @@ class _HomePageState extends State<HomePage> {
                     _buttonColor2 = const Color(0xff131214);
                   });
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const HomeAddPage()),
+                    MaterialPageRoute(
+                        builder: (context) => HomeAddPage(user: useer)),
                   );
                 },
                 child: Container(

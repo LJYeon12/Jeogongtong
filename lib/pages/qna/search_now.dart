@@ -1,21 +1,18 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:jeogongtong_front/constants/api.dart';
-import 'package:jeogongtong_front/pages/home/home_page.dart';
-import 'package:jeogongtong_front/widgets/selected_study.dart';
 
-class SearchResultPage extends StatefulWidget {
+class SearchNowPage extends StatefulWidget {
   final String searchQuery;
-  const SearchResultPage({Key? key, required this.searchQuery})
-      : super(key: key);
+  const SearchNowPage({Key? key, required this.searchQuery}) : super(key: key);
 
   @override
-  State<SearchResultPage> createState() => _SearchResultPageState();
+  State<SearchNowPage> createState() => _SearchNowPageState();
 }
 
-class _SearchResultPageState extends State<SearchResultPage> {
+class _SearchNowPageState extends State<SearchNowPage> {
   Color _buttonColor = const Color(0xff131214);
   final TextEditingController _controller = TextEditingController();
   List<dynamic> searchResults = [];
@@ -32,7 +29,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
       scheme: 'http',
       port: apiPort,
       host: apiHost,
-      path: '/study-clubs/search',
+      path: '/questions/search/${widget.searchQuery}',
     );
     final response = await http.post(
       uri,
@@ -45,7 +42,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
         print(searchResults);
       });
     } else {
-      throw Exception('Failed');
+      Center(child: Text("찾으시는 질문이 없습니다"));
     }
   }
 
@@ -108,7 +105,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              SearchResultPage(searchQuery: text),
+                              SearchNowPage(searchQuery: text),
                         ),
                       );
                     }
@@ -165,6 +162,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
+                        /*
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -173,6 +171,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                             ),
                           ),
                         );
+                        */
                       });
                 },
               ),

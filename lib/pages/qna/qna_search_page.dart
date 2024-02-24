@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/pages/home/search_result_page.dart';
+import 'package:jeogongtong_front/pages/qna/search_now.dart';
 
-class HomeSearchPage extends StatefulWidget {
-  const HomeSearchPage({super.key});
+class QnASearchPage extends StatefulWidget {
+  const QnASearchPage({super.key});
 
   @override
-  State<HomeSearchPage> createState() => _HomeSearchPageState();
+  State<QnASearchPage> createState() => _QnASearchPageState();
 }
 
-class _HomeSearchPageState extends State<HomeSearchPage> {
+class _QnASearchPageState extends State<QnASearchPage> {
   bool _showIcon = false;
   Color _buttonColor = const Color(0xff131214);
   final TextEditingController _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,7 +74,7 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              SearchResultPage(searchQuery: text),
+                              SearchNowPage(searchQuery: text),
                         ),
                       );
                     }
@@ -131,7 +131,7 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
                   const ColorFilter.mode(Color(0xffE3E5E5), BlendMode.srcIn),
             ),
             const Text(
-              "공부방을 검색해보세요",
+              "궁금한 것을 찾아보세요",
               style: TextStyle(fontSize: 30, color: Color(0xffE3E5E5)),
               textAlign: TextAlign.center,
             )

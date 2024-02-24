@@ -1,19 +1,79 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/pages/study/study_page.dart';
 import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 
 class StudyDetailPage extends StatefulWidget {
-  const StudyDetailPage({Key? key}) : super(key: key);
+  final int userId;
+  final int studyId;
+  final String name;
+  const StudyDetailPage({
+    Key? key,
+    required this.userId,
+    required this.studyId,
+    required this.name,
+  }) : super(key: key);
 
   @override
   State<StudyDetailPage> createState() => _StudyDetailPageState();
 }
 
 class _StudyDetailPageState extends State<StudyDetailPage> {
+  //get 받기
+  final user = FirebaseAuth.instance.currentUser;
+//Get
+  late List<dynamic> _nickname = [];
+  late List<dynamic> _rank = [];
+  late List<dynamic> _weektime = [];
+  @override
+  void initState() {
+    super.initState();
+    study();
+  }
+
+  Future<void> study() async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/ranking/${widget.studyId}',
+    );
+
+    final String? idToken = await user?.getIdToken();
+    final response = await http.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${idToken!}'
+    });
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      String responseBody = utf8.decode(response.bodyBytes);
+      List<Map<String, dynamic>> studyroom = jsonDecode(responseBody);
+      final nickname = [];
+      final rank = [];
+      final weektime = [];
+      for (var index in studyroom) {
+        nickname.add(index['nickname']);
+        rank.add(index['rank']);
+        weektime.add(index['weektime']);
+      }
+      setState(() {
+        _nickname = nickname;
+        _rank = rank;
+        _weektime = weektime;
+      });
+      print(nickname);
+    } else {
+      throw Exception('Failed!');
+    }
+  }
+
+  //타이머 함수
   late Timer _timer;
   int seconds = 0;
   bool isTimerRunning = false;
@@ -77,8 +137,8 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
           child: AppBar(
             backgroundColor: Colors.white,
             centerTitle: true,
-            title: const Text(
-              "Java",
+            title: Text(
+              widget.name,
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -185,39 +245,17 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 8,
+                  itemCount: _nickname.length,
                   itemBuilder: (context, index) {
-                    List<String> listEx = [
-                      "완전열심",
-                      "박서연",
-                      "이나영",
-                      "박상윤",
-                      "곰돌이",
-                      "고양이",
-                      "안녕하세요",
-                      "김나연",
-                    ];
-                    List<String> time = [
-                      "06:02:39",
-                      "05:48:52",
-                      "03:55:50",
-                      "03:44:10",
-                      "01:50:45",
-                      "00:01:50",
-                      "00:30:10",
-                      "00:00:10"
-                    ];
                     return ListTile(
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 20), // 좌우 여백 조정
-                        title: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween, // 요소들을 양쪽에 배치
-                          children: [
-                            Text('${index + 1}. ${listEx[index]}'),
-                            Text(time[index]), // 시간 표시
-                          ],
-                        ));
+                      titleTextStyle: TextStyle(fontSize: 16),
+                      leadingAndTrailingTextStyle:
+                          TextStyle(fontSize: 16, color: Color(0xffFC9AB8)),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20), // 좌우 여백 조정
+                      title: Text('${_rank[index]}. ${_nickname[index]}'),
+                      trailing: Text('${_formatTime(_weektime[index])}'),
+                    );
                   },
                 ),
               )

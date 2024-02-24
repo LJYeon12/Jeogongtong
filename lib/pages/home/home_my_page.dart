@@ -186,229 +186,232 @@ class _HomeMyPageState extends State<HomeMyPage> {
             ],
           ),
         ),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 28),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
+        body: _nickname.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Text(
-                        "닉네임",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "닉네임",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 32),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "$_nickname",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
+                      SizedBox(height: 32),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "$_nickname",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child:
-                      const Divider(color: Color(0xffE3E5E5), thickness: 1.0),
-                ),
-                const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "등급/포인트",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(height: 30),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: const Divider(
+                            color: Color(0xffE3E5E5), thickness: 1.0),
+                      ),
+                      const SizedBox(height: 30),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "등급/포인트",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 28),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Icon(Icons.local_police,
-                          color: getColorForGrade(_tier),
-                          size: 24), //getColorForGrade(_grade)
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 28),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "${_point} p",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
+                      SizedBox(height: 28),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Icon(Icons.local_police,
+                                color: getColorForGrade(_tier),
+                                size: 24), //getColorForGrade(_grade)
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(width: 10),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => PointPage()),
-                          //builder: (_) => PointPage(score: _score)),
-                        );
-                      },
-                      child: Row(
+                      const SizedBox(height: 28),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "${_point} p",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
                         children: [
-                          Text(
-                            "포인트 지급 내역",
-                            style: TextStyle(
-                              color: Color(0xff979C9E),
-                              fontSize: 14,
+                          SizedBox(width: 10),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => PointPage()),
+                                //builder: (_) => PointPage(score: _score)),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  "포인트 지급 내역",
+                                  style: TextStyle(
+                                    color: Color(0xff979C9E),
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                SvgPicture.asset(
+                                  "assets/images/chevron-right.svg",
+                                  width: 14,
+                                )
+                              ],
                             ),
                           ),
-                          SvgPicture.asset(
-                            "assets/images/chevron-right.svg",
-                            width: 14,
-                          )
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child:
-                      const Divider(color: Color(0xffE3E5E5), thickness: 1.0),
-                ),
-                const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "스터디 랭킹",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: const Divider(
+                            color: Color(0xffE3E5E5), thickness: 1.0),
+                      ),
+                      const SizedBox(height: 30),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "스터디 랭킹",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _studyName.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 0),
-                          title: Text(
-                            "${_studyName[index]}(${_state[index]})",
-                            style: TextStyle(
-                              fontSize: 16,
+                      Column(
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: _studyName.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 0),
+                                title: Text(
+                                  "${_studyName[index]}(${_state[index]})",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  "${_rank[index]}위",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: const Divider(
+                            color: Color(0xffE3E5E5), thickness: 1.0),
+                      ),
+                      const SizedBox(height: 30),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "내 계정",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "$_email",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Row(
+                        children: [
+                          SizedBox(width: 10),
+                          TextButton(
+                            onPressed: () {
+                              context
+                                  .read<AppAuthProvider.AuthProvider>()
+                                  .signout();
+                              print('로그아웃');
+                              Navigator.popUntil(context,
+                                  ModalRoute.withName(SignUpPage.routeName));
+                            },
+                            child: Text(
+                              "로그아웃",
+                              style: TextStyle(
+                                color: Color(0xffFC9AB8),
+                                fontSize: 16,
+                              ),
                             ),
                           ),
-                          trailing: Text(
-                            "${_rank[index]}위",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child:
-                      const Divider(color: Color(0xffE3E5E5), thickness: 1.0),
-                ),
-                const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "내 계정",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "$_email",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30),
-                Row(
-                  children: [
-                    SizedBox(width: 10),
-                    TextButton(
-                      onPressed: () {
-                        context.read<AppAuthProvider.AuthProvider>().signout();
-                        print('로그아웃');
-                        Navigator.popUntil(
-                            context, ModalRoute.withName(SignUpPage.routeName));
-                      },
-                      child: Text(
-                        "로그아웃",
-                        style: TextStyle(
-                          color: Color(0xffFC9AB8),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
 import 'package:jeogongtong_front/pages/home/home_search_page.dart';
+import 'package:jeogongtong_front/pages/qna/qna_search_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_write.dart';
 import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:jeogongtong_front/widgets/question_widget.dart';
@@ -21,7 +22,7 @@ class QnAPage extends StatefulWidget {
 
 class _QnAPageState extends State<QnAPage> {
 //get
-  List<dynamic> _pageContent = []; // 페이지의 내용을 저장할 변수
+  List<dynamic> _pageContent = [];
 
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _QnAPageState extends State<QnAPage> {
   // }
   @override
   Widget build(BuildContext context) {
+    Color _buttonColor1 = const Color(0xff131214);
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -85,6 +87,32 @@ class _QnAPageState extends State<QnAPage> {
               ),
             ),
             titleSpacing: 0,
+            actions: <Widget>[
+              GestureDetector(
+                onTapDown: (_) {
+                  setState(() {
+                    _buttonColor1 = const Color(0xffFC9AB8);
+                  });
+                },
+                onTapUp: (_) {
+                  setState(() {
+                    _buttonColor1 = const Color(0xff131214);
+                  });
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const QnASearchPage()),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  constraints: const BoxConstraints(),
+                  child: SvgPicture.asset(
+                    "assets/images/search.svg",
+                    colorFilter:
+                        ColorFilter.mode(_buttonColor1, BlendMode.srcIn),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
