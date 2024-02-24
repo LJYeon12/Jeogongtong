@@ -6,6 +6,7 @@ import 'package:jeogongtong_front/pages/qna/qna_page.dart';
 import 'package:jeogongtong_front/pages/study/study_page.dart';
 
 class BottomNavigator extends StatefulWidget {
+  static const routeName = "/navigator";
   const BottomNavigator({super.key});
 
   @override

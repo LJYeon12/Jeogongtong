@@ -8,6 +8,9 @@ import 'package:jeogongtong_front/models/user.dart';
 class AuthService {
   final fbAuth.FirebaseAuth firebaseAuth = fbAuth.FirebaseAuth.instance;
   final http.Client httpClient = http.Client();
+  //Future<void> setPersistence() async {
+  //await firebaseAuth.setPersistence(fbAuth.Persistence.SESSION);
+  //}
 
   Stream<fbAuth.User?> get user => firebaseAuth.userChanges();
 
@@ -23,9 +26,16 @@ class AuthService {
     User user = User(nickname: nickname, idToken: token);
     try {
       print('http 시작');
-      http.Response response = await httpClient.post(uri,
-          body: user.toJson(), headers: {'Content-Type': 'application/json'});
+      http.Response response =
+          await httpClient.post(uri, body: user.toJson(), headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + token
+      });
       print(response.body);
+
+      print("statusCode: ${response.statusCode}");
+      print("responseHeaders: ${response.headers}");
+      print("responseBody: ${response.body}");
       return response;
     } catch (e) {
       rethrow;

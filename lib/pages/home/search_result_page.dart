@@ -1,6 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/home/java_study_example.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:jeogongtong_front/constants/api.dart';
+import 'package:jeogongtong_front/pages/home/home_page.dart';
+import 'package:jeogongtong_front/widgets/selected_study.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String searchQuery;
@@ -14,14 +19,36 @@ class SearchResultPage extends StatefulWidget {
 class _SearchResultPageState extends State<SearchResultPage> {
   Color _buttonColor = const Color(0xff131214);
   final TextEditingController _controller = TextEditingController();
+  List<dynamic> searchResults = [];
+  Map<String, dynamic>? selectedStudy;
   @override
   void initState() {
     super.initState();
     _controller.text = widget.searchQuery;
+    _fetchData(widget.searchQuery);
   }
 
-//예시
-  List<String> javaEx = ["자바 기초", "자바(실습 포함)", "Java(자바) 고급 스터디"];
+  Future<void> _fetchData(String keyword) async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/study-clubs/search',
+    );
+    final response = await http.post(
+      uri,
+      body: {'keyword': keyword},
+      encoding: Encoding.getByName('utf-8'),
+    );
+    if (response.statusCode == 200) {
+      setState(() {
+        searchResults = jsonDecode(utf8.decode(response.bodyBytes));
+        print(searchResults);
+      });
+    } else {
+      throw Exception('Failed');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +99,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   color: const Color(0xffF2F4F5),
                   borderRadius: BorderRadius.circular(8)),
               child: Center(
+                //텍스트 필드
                 child: TextField(
                   controller: _controller,
-                  onSubmitted: (text) {
+                  onSubmitted: (text) async {
                     if (text.isNotEmpty) {
+                      await _fetchData(text);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -123,17 +152,28 @@ class _SearchResultPageState extends State<SearchResultPage> {
             SizedBox(height: 13),
             Expanded(
               child: ListView.builder(
-                itemCount: javaEx.length,
+                itemCount: searchResults.length,
                 itemBuilder: (context, index) {
+                  final result = searchResults[index];
+                  final name = result.containsKey('name')
+                      ? result['name']
+                      : 'Name not available';
+
                   return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 24),
                       title: Text(
-                        javaEx[index],
+                        name,
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => JavaStudyExample()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SelectedStudyInfo(
+                              selectedStudy: result,
+                            ),
+                          ),
+                        );
                       });
                 },
               ),

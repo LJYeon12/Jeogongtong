@@ -132,28 +132,20 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
           ),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 24),
-            Row(
-              children: [
-                SizedBox(width: 24),
-                Text(
-                  "최근 검색",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
+            const SizedBox(height: 80),
+            SvgPicture.asset(
+              'assets/images/search.svg',
+              width: 75,
+              height: 75,
+              colorFilter:
+                  const ColorFilter.mode(Color(0xffE3E5E5), BlendMode.srcIn),
             ),
-            SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: recentSearches.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 24),
-                    title: Text(recentSearches[index]),
-                  );
-                },
-              ),
+            const Text(
+              "공부방을 검색해보세요",
+              style: TextStyle(fontSize: 30, color: Color(0xffE3E5E5)),
+              textAlign: TextAlign.center,
             )
           ],
         ),

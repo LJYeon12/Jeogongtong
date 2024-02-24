@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
@@ -34,26 +35,24 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
+            Center(
               child: Text(
                 "공부의 저금고,",
-                style: TextStyle(
-                  fontSize: 48,
+                style: GoogleFonts.blackHanSans(
+                  fontSize: 26,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  //fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const Text(
+            Text(
               "저공통",
-              style: TextStyle(
-                fontSize: 48,
+              style: GoogleFonts.blackHanSans(
+                fontSize: 68,
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                letterSpacing: 4,
+                //fontWeight: FontWeight.bold,
               ),
-            ),
-            const SizedBox(
-              height: 10,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Flexible(
@@ -81,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                // authService.signInWithGoogle();
+                context.read<SignupProvider>().signInWithGoogle();
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,

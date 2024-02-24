@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:jeogongtong_front/constants/api.dart';
+import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
 import 'package:jeogongtong_front/pages/home/home_search_page.dart';
@@ -17,8 +20,40 @@ class QnAPage extends StatefulWidget {
 }
 
 class _QnAPageState extends State<QnAPage> {
-  Color _buttonColor = const Color(0xff131214);
+//get
+  List<dynamic> _pageContent = []; // 페이지의 내용을 저장할 변수
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPageContent();
+  }
+
+  Future<void> _fetchPageContent() async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/questions/all',
+    );
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        setState(() {
+          _pageContent = jsonDecode(utf8.decode(response.bodyBytes));
+          print(_pageContent);
+        });
+      } else {
+        print('Failed to load page: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching page: $e');
+    }
+  }
+
   final List<String> _tempData = [
+    "전체",
     "경제/경영",
     "공무원/고시",
     "과학/공학",
@@ -40,6 +75,7 @@ class _QnAPageState extends State<QnAPage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             title: const Padding(
               padding: EdgeInsets.only(left: 15.0),
@@ -49,32 +85,6 @@ class _QnAPageState extends State<QnAPage> {
               ),
             ),
             titleSpacing: 0,
-            actions: <Widget>[
-              GestureDetector(
-                onTapDown: (_) {
-                  setState(() {
-                    _buttonColor = const Color(0xffFC9AB8);
-                  });
-                },
-                onTapUp: (_) {
-                  setState(() {
-                    _buttonColor = const Color(0xff131214);
-                  });
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const HomeSearchPage()),
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  constraints: const BoxConstraints(),
-                  child: SvgPicture.asset(
-                    "assets/images/search.svg",
-                    colorFilter:
-                        ColorFilter.mode(_buttonColor, BlendMode.srcIn),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -95,8 +105,72 @@ class _QnAPageState extends State<QnAPage> {
               const SizedBox(
                 height: 35,
               ),
-              const Column(
+              /*
+              FutureBuilder(
+                future: _fetchPageContent(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        '현재 게시된 질문이 없습니다.',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    );
+                  } else {
+                    List<dynamic> studyRooms = snapshot.data as List<dynamic>;
+                    return Column(
+                      children: [
+                        const SizedBox(height: 13),
+                        Expanded(
+                          /*
+                child: ListView.builder(
+                  itemCount: nameExample.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 24),
+                        title: Text(
+                          nameExample[index],
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => RoomPage()));
+                        });
+                  },
+                ),
+                */
+
+                          child: ListView.builder(
+                            itemCount: studyRooms.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 24),
+                                  title: Text(
+                                    studyRooms[index],
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  onTap: () {
+                                    //studyId: selectedStudyId
+                                  });
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                },
+              ),
+              */
+
+              Column(
                 children: [
+                  Text(_pageContent.toString()),
                   QuestionCard(
                     nickname: "김ㅇㅇ",
                     title: "Q.코딩 문제 도와주세요.",

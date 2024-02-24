@@ -53,13 +53,15 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffF7CCDB))
               .copyWith(background: Colors.white),
         ),
-        home: const BottomNavigator(),
+        home: const SplashPage(),
         routes: {
+          BottomNavigator.routeName: (context) => const BottomNavigator(),
           HomePage.routeName: (context) => const HomePage(),
           QnAPage.routeName: (context) => const QnAPage(),
           SignUpPage.routeName: (context) => const SignUpPage(),
           StudyPage.routeName: (context) => const StudyPage(),
-          NicknamePage.routeName: (context) => const NicknamePage()
+          NicknamePage.routeName: (context) => const NicknamePage(),
+          SplashPage.routeName: (context) => const SplashPage(),
         },
       ),
     );

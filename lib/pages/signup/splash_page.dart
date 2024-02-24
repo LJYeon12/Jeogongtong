@@ -4,6 +4,7 @@ import 'package:jeogongtong_front/pages/signup/signup_page.dart';
 import 'package:jeogongtong_front/pages/study/study_page.dart';
 import 'package:jeogongtong_front/provider/auth/auth_state.dart';
 import 'package:jeogongtong_front/provider/signup/signup_state.dart';
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
     } else if (authState.authStatus == AuthStatus.authenticated) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         //TODO Home Page로 변환
-        Navigator.pushNamed(context, StudyPage.routeName);
+        Navigator.pushNamed(context, BottomNavigator.routeName);
       });
     } else if (authState.authStatus == AuthStatus.unauthenticated) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

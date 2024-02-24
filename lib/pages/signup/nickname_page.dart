@@ -1,8 +1,14 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/provider/signup/signup_provider.dart';
 import 'package:jeogongtong_front/service/auth_service.dart';
@@ -21,19 +27,21 @@ class _NicknamePageState extends State<NicknamePage> {
   final _formKey = GlobalKey<FormState>();
   AuthService authService = AuthService();
 
-  final String _textFormFieldValue = '';
+  String _textFormFieldValue = '';
   late String firebaseUserToken;
   String email = '';
+  String nickname = '';
 
-  void _submit() async {
+  Future<void> _submit() async {
     try {
       final user = context.read<fbAuth.User?>();
       if (user == null) {
         // handle the case where user is null
         return;
       }
-      print('nickname: $_textFormFieldValue');
+      _textFormFieldValue = _nicknameController.text;
       firebaseUserToken = (await user.getIdToken())!;
+
       if (!mounted) return;
 
       await context.read<SignupProvider>().nicknameSignUp(
@@ -106,23 +114,34 @@ class _NicknamePageState extends State<NicknamePage> {
                 ),
               ),
               const Spacer(),
-              SizedBox(
-                width: 327,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _submit();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: buttonColor, // 텍스트 색상
-                  ),
-                  child: const Text("확인"),
-                ),
-              )
             ],
           ),
         ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 23),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width - 24,
+            height: 48,
+            child: FloatingActionButton(
+              onPressed: () {
+                _submit();
+              },
+              backgroundColor: buttonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48.0),
+              ),
+              child: Text(
+                '확인',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              elevation: 2.0,
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }

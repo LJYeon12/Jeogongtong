@@ -8,6 +8,7 @@ class SignupProvider extends StateNotifier<SignupState> with LocatorMixin {
   Future<void> signInWithGoogle() async {
     state = state.copyWith(signupStatus: SignupStatus.submitting);
     try {
+      //await read<AuthService>().setPersistence();
       await read<AuthService>().signInWithGoogle();
       state = state.copyWith(signupStatus: SignupStatus.beforeNickname);
     } catch (e) {

@@ -1,17 +1,20 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jeogongtong_front/pages/home/home_page.dart';
+import 'package:jeogongtong_front/constants/api.dart';
+import 'package:jeogongtong_front/models/user_room.dart';
 import 'package:jeogongtong_front/widgets/count_button.dart';
 
+final user = FirebaseAuth.instance.currentUser;
+
 class HomeAddPage extends StatefulWidget {
-  final void Function(String)? onStudyNameAdded;
-  const HomeAddPage({Key? key, this.onStudyNameAdded}) : super(key: key);
+  const HomeAddPage({super.key});
 
   @override
   State<HomeAddPage> createState() => _HomeAddPageState();
@@ -47,11 +50,31 @@ class _HomeAddPageState extends State<HomeAddPage> {
   int ranker_ask = 0;
   int ranker_answer = 0;
 
+  late UserRoom currentUser;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 //POST
   final client = http.Client();
   Future<void> _sendData() async {
-    final url = Uri.parse('http://localhost:8080/study-clubs/regist');
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/study-clubs/regist',
+    );
+
+    final String? idToken = await user?.getIdToken();
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $idToken' // UTF-8 컨텐츠 타입 헤더 추가
+    };
+
     final data = {
+      /*
       'intro': intro,
       'category': catalog,
       'settingPeriod': setting_period,
@@ -59,14 +82,33 @@ class _HomeAddPageState extends State<HomeAddPage> {
       'book': book,
       'rankerAsk': ranker_ask,
       'rankerAnswer': ranker_answer,
+      'user': currentUser.toMap(),
+      */
+      "name": "n번째 스터디",
+      "book": "Java의 정석",
+      "category": "프로그래밍",
+      "settingPeriod": "2023-12",
+      "rankerAsk": 5,
+      "rankerAnswer": 2,
+      "intro": "Java 스터디 모임입니다.",
+      "users": {
+        "id": 3,
+        "email": "eliyeon@sookmyung.ac.kr",
+        "nickname": "아아",
+        "point": "50000"
+      }
     };
-    /*
     try {
-      await client.post(url, body: jsonEncode(data));
+      final response =
+          await client.post(uri, headers: headers, body: jsonEncode(data));
+      if (response.statusCode == 200) {
+        print('Data sent successfully: ${response.body}');
+      } else {
+        print('Failed to send data. Error code: ${response.statusCode}');
+      }
     } catch (e) {
       rethrow;
     }
-    */
   }
 
   void disposeClient() {
@@ -149,8 +191,8 @@ class _HomeAddPageState extends State<HomeAddPage> {
                           formKey.currentState!.save();
                           await _sendData();
                           if (context.mounted) {
-                            _showSnackbar(context);
-                            Navigator.pop(context, study_name);
+                            //_showSnackbar(context);
+                            Navigator.pop(context);
                           }
                         }
                       }

@@ -1,19 +1,26 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/pages/home/help_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/pages/home/point_page.dart';
+import 'package:jeogongtong_front/pages/signup/signup_page.dart';
+import 'package:jeogongtong_front/provider/auth/auth_provider.dart'
+    as AppAuthProvider;
 import 'dart:developer';
 
 import 'package:jeogongtong_front/widgets/grade_theme.dart';
+import 'package:provider/provider.dart';
+
+final user = FirebaseAuth.instance.currentUser;
 
 class HomeMyPage extends StatefulWidget {
-  const HomeMyPage({super.key});
-
+  final int userId;
+  const HomeMyPage({Key? key, required this.userId}) : super(key: key);
   @override
   State<HomeMyPage> createState() => _HomeMyPageState();
 }
@@ -23,7 +30,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
   Color _buttonColor2 = const Color(0xff131214);
   Color getColorForGrade(String grade) {
     switch (grade) {
-      case 'Iron':
+      case 'ion':
         return ColorStyles.Iron;
       case 'Bronze':
         return ColorStyles.Bronze;
@@ -38,15 +45,17 @@ class _HomeMyPageState extends State<HomeMyPage> {
       case 'Legend':
         return ColorStyles.Legend;
       default:
-        return Colors.black;
+        return Colors.white;
     }
   }
 
 //백엔드 연결
   late String _nickname = '';
-  late String _grade = '';
-  late int _score;
-  late List<int> _rank = [];
+  late String _tier = '';
+  late int _point = 0;
+  late List<dynamic> _studyName = [];
+  late List<dynamic> _state = [];
+  late List<dynamic> _rank = [];
   late String _email = '';
   @override
   void initState() {
@@ -55,23 +64,43 @@ class _HomeMyPageState extends State<HomeMyPage> {
   }
 
   Future<void> _fetchData() async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/users/${widget.userId}',
+    );
+    final String? idToken = await user?.getIdToken();
+    final response = await http.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${idToken}'
+    });
     try {
-      final response =
-          await http.get(Uri.parse('http://localhost:8080/users/{userId}'));
+      print(response.statusCode);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final user = data['data']['user'];
-        final studyRank = data['data']['studyRank'];
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
+        print(data);
+        final user = data['user'];
+        final studyRank = data['studyRank'];
         final nickname = user['nickname'];
-        final grade = user['grade'];
-        final score = user['score'];
-        final List<int> rank = studyRank['userId'];
+        final point = user['point'];
+        final tier = user['tier'];
+        final studyName = [];
+        final state = [];
+        final rank = [];
+        for (var index in studyRank) {
+          studyName.add(index['studyName']);
+          state.add(index['state']);
+          rank.add(index['rank']);
+        }
         final email = user['email'];
 
         setState(() {
           _nickname = nickname;
-          _grade = grade;
-          _score = score;
+          _point = point;
+          _tier = tier;
+          _studyName = studyName;
+          _state = state;
           _rank = rank;
           _email = email;
         });
@@ -185,7 +214,6 @@ class _HomeMyPageState extends State<HomeMyPage> {
                   child: Row(
                     children: [
                       Text(
-                        //"ㅁㅁㅁㅁ",
                         "$_nickname",
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -223,7 +251,8 @@ class _HomeMyPageState extends State<HomeMyPage> {
                   child: Row(
                     children: [
                       Icon(Icons.local_police,
-                          color: getColorForGrade(_grade), size: 24),
+                          color: getColorForGrade(_tier),
+                          size: 24), //getColorForGrade(_grade)
                     ],
                   ),
                 ),
@@ -233,8 +262,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                   child: Row(
                     children: [
                       Text(
-                        "320 p",
-                        //"$_score p",
+                        "${_point} p",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
@@ -293,71 +321,33 @@ class _HomeMyPageState extends State<HomeMyPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
-                // 예시값
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "알고리즘",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 16,
+                Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _studyName.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 0),
+                          title: Text(
+                            "${_studyName[index]}(${_state[index]})",
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "11위",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 16,
+                          trailing: Text(
+                            "${_rank[index]}위",
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "SQLD",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "7위",
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                /*
-                ListView.builder(
-                  itemCount: _rank.length,
-                  itemBuilder: (context, index) {
-                    final rankInfo = _rank[index];
-                    return ListTile(
-                      title: Text('Rank: ${rankInfo['rank']}'),
-                      subtitle: Text('Role: ${rankInfo['role']}'),
-                    );
-                  },
-                )
-                */
-                SizedBox(height: 30),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child:
@@ -400,8 +390,10 @@ class _HomeMyPageState extends State<HomeMyPage> {
                     SizedBox(width: 10),
                     TextButton(
                       onPressed: () {
-                        Navigator.popUntil(context,
-                            ModalRoute.withName(Navigator.defaultRouteName));
+                        context.read<AppAuthProvider.AuthProvider>().signout();
+                        print('로그아웃');
+                        Navigator.popUntil(
+                            context, ModalRoute.withName(SignUpPage.routeName));
                       },
                       child: Text(
                         "로그아웃",
