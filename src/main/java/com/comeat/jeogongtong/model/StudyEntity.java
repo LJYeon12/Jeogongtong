@@ -32,6 +32,11 @@ public class StudyEntity extends BaseEntity {
     @Column(length = 500)
     private String intro;
 
+//    @ManyToOne
+//    @JoinColumn(name = "admin_email")
+//    private Users users;
+
+
     public static StudyEntity tostudyEntity(RegistRequestDto registRequestDto) {
         StudyEntity studyEntity = new StudyEntity();
         studyEntity.setName(registRequestDto.getName());
@@ -41,6 +46,7 @@ public class StudyEntity extends BaseEntity {
         studyEntity.setRankerAsk(registRequestDto.getRankerAsk());
         studyEntity.setRankerAnswer(registRequestDto.getRankerAnswer());
         studyEntity.setIntro(registRequestDto.getIntro());
+        //studyEntity.setUsers(registRequestDto.getUsers());
         return studyEntity;
     }
 }

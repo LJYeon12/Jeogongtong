@@ -3,23 +3,25 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class FirebaseConfig {
+public class FirebaseConfig{
     
     @Bean
     public FirebaseAuth firebaseAuth() throws IOException {
@@ -33,8 +35,17 @@ public class FirebaseConfig {
                 .build();
 
         FirebaseApp.initializeApp(options);
+
         return FirebaseAuth.getInstance();
     }
+
+
+    @Bean
+    public FirebaseAuth getFirebaseAuth() throws IOException {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        return firebaseAuth;
+    }
+
 //
 //    @Bean
 //    public AuthenticationProvider firebaseAuthenticationProvider() throws IOException {

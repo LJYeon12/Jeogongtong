@@ -25,7 +25,7 @@ public class FirebaseController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginWithFirebase(@RequestBody Map<String, String> payload) {
-        UserResponseDto user = firebaseService.AuthService(payload);
-        return ResponseEntity.ok("Successfully authenticated user with email: " + user.getEmail() + user.getNickname());
+        ResponseEntity<Map<String, String>> user = firebaseService.AuthService(payload);
+        return ResponseEntity.ok("Successfully authenticated user with email: " + user.getBody()+user.getHeaders().toString());
     }
 }

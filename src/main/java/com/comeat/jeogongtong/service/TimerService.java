@@ -44,7 +44,7 @@ public class TimerService {
         studyMemberRepository.save(studyMember);
         return newWeekTime;
     }
-
+    // 수정
     // 매일 자정에 실행되는 스케줄링된 작업 (일주일 누적시간 초기화)
     @Scheduled(cron = "0 0 0 * * *") // 매일 자정 실행
     public void resetWeektime() {
@@ -57,14 +57,18 @@ public class TimerService {
                 for (int i = 0; i < members.size(); i++) {
                     StudyMemberEntity member = members.get(i);
                     member.setRank(i + 1); // 누적 랭킹 업데이트
+                    // 주당 평균 공부 시간 계산 (초 단위)
+                    long averageWeeklyTimeInSeconds = member.getWeektime() / 7;
+                    // 포인트 계산 (시간 단위로 변환 후 100을 곱함)
+                    int points = (int) (averageWeeklyTimeInSeconds / 3600.0 * 100);
+                    // 사용자 포인트에 추가
+                    member.getUser().addPoints(points);
+                    // weektime 리셋
+                    member.setWeektime(0L);
                     studyMemberRepository.save(member);
                 }
-
-                members.forEach(member -> {
-                    member.setWeektime(0L); // weektime 리셋
-                    studyMemberRepository.save(member);
-                });
             }
         }
+
     }
 }

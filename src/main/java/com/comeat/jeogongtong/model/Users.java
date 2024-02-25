@@ -6,7 +6,6 @@ import lombok.*;
 
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Data
@@ -21,17 +20,10 @@ public class Users {
     private Long userId;
     private String email;
     private String nickname;
-    private Integer point;
+    private int point;
     private String tear;
 
-    public static Users toUsers(UserDto userDto){
-        Users users = new Users();
-        users.setNickname(userDto.getNickname());
-        users.setPoint(userDto.getPoint());
-        users.setEmail(userDto.getEmail());
-        return users;
-    }
-    public String setTear(int point) {
+    public void setTear(int point) {
         this.point = point;
         if (point <= 300) {
             this.tear = "ion";
@@ -48,7 +40,11 @@ public class Users {
         }else if (point <= 300000) {
             this.tear = "legend";
         }
+    }
 
-        return tear;
+
+    // 수정
+    public void addPoints(int additionalPoints){
+        this.point += additionalPoints;
     }
 }

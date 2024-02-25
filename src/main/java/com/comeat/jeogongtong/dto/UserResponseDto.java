@@ -1,6 +1,7 @@
 package com.comeat.jeogongtong.dto;
 
 
+import com.comeat.jeogongtong.model.Questions;
 import com.comeat.jeogongtong.model.Users;
 import lombok.*;
 
@@ -23,4 +24,6 @@ public class UserResponseDto {
         this.point =user.getPoint();
         this.tear = user.getTear();
     }
+
+
 }

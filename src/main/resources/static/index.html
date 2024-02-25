@@ -10,13 +10,12 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyC65LByVw4o3OgwKpmDe37XNo__tQcMARE",
-            authDomain: "jeogongtong-b1461.firebaseapp.com",
-            projectId: "jeogongtong-b1461",
-            storageBucket: "jeogongtong-b1461.appspot.com",
-            messagingSenderId: "1086727774452",
-            appId: "1:1086727774452:web:d1101a348f79618eb13ea1",
-            measurementId: "G-RE0SNWZYKK"
+            apiKey: "AIzaSyCegHvQKk-9XZEDmHvJo5pjynH_LHRjCN0",
+            authDomain: "jeogongtong.firebaseapp.com",
+            projectId: "jeogongtong",
+            storageBucket: "jeogongtong.appspot.com",
+            messagingSenderId: "1075717257121",
+            appId: "1:1075717257121:android:fbcc5fd643c7db24e6bde0"
         };
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -36,7 +35,8 @@
                         fetch('http://localhost:8080/login', {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + idToken
                             },
                             body: JSON.stringify({
                                 idToken: idToken,

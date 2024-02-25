@@ -1,8 +1,8 @@
 package com.comeat.jeogongtong.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.context.annotation.Bean;
 
 import java.sql.Time;
 
@@ -10,6 +10,9 @@ import java.sql.Time;
 @Table(name = "study_member")
 @Getter
 @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @IdClass(StudyMemberId.class)
 public class StudyMemberEntity {
     @Id

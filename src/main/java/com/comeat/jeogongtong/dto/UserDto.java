@@ -20,7 +20,7 @@ public class UserDto {
         userDto.setUserId(users.getUserId());
         userDto.setNickname(users.getNickname());
         userDto.setPoint(users.getPoint());
-        userDto.setTier(users.setTear(users.getPoint()));
+        userDto.setTier(users.getTear());
         userDto.setEmail(users.getEmail());
         return userDto;
     }

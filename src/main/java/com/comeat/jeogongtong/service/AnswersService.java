@@ -2,12 +2,10 @@ package com.comeat.jeogongtong.service;
 
 import com.comeat.jeogongtong.dto.AnswerRequestDto;
 import com.comeat.jeogongtong.dto.AnswerResponseDto;
-import com.comeat.jeogongtong.dto.QuestionRequestDto;
-import com.comeat.jeogongtong.dto.QuestionResponseDto;
 import com.comeat.jeogongtong.model.Answers;
 import com.comeat.jeogongtong.model.Questions;
+import com.comeat.jeogongtong.model.Users;
 import com.comeat.jeogongtong.repository.AnswersRepository;
-import com.comeat.jeogongtong.repository.QuestionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnswersService {
     private final AnswersRepository answersRepository;
     @Transactional
-    public AnswerResponseDto awrite(AnswerRequestDto requestDto){
+    public AnswerResponseDto awrite(AnswerRequestDto requestDto, Users users){
         Answers answers = requestDto.toEntity();
+        answers.setUsers(users);
         return AnswerResponseDto.of(answersRepository.save(answers));
     }
 

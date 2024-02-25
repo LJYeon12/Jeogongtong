@@ -30,5 +30,6 @@ public interface QuestionsRepository extends JpaRepository<Questions,Long> {
             " SELECT id,category,content,photo_url, regi_date, title, asking_id,user_id FROM answers ")
     List<Object[]> findQuestionsAndAnswers();
 
-
+    // 수정
+    List<Questions> findByUsers_UserId(Long userId);
 }

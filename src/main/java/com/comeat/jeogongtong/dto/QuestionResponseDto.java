@@ -18,7 +18,6 @@ public class QuestionResponseDto {
     private String category;
     private String regiDate;
     private String photoUrl;
-    private Long userId;
 
 
     public static QuestionResponseDto of(Questions questions) {
@@ -28,7 +27,6 @@ public class QuestionResponseDto {
                 .category(questions.getCategory())
                 .regiDate(questions.getRegiDate())
                 .photoUrl(questions.getPhotoUrl())
-                .userId(questions.getUsers().getUserId())
                 .build();
     }
 

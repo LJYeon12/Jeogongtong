@@ -4,8 +4,13 @@ import com.comeat.jeogongtong.dto.AnswerRequestDto;
 import com.comeat.jeogongtong.dto.AnswerResponseDto;
 import com.comeat.jeogongtong.dto.QuestionRequestDto;
 import com.comeat.jeogongtong.dto.QuestionResponseDto;
+import com.comeat.jeogongtong.model.Users;
+import com.comeat.jeogongtong.repository.UserRepository;
 import com.comeat.jeogongtong.service.AnswersService;
 import com.comeat.jeogongtong.service.QuestionsService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +25,8 @@ public class QuestionsController {
 
     private final QuestionsService questionsService;
     private final AnswersService answersService;
+    private final FirebaseAuth firebaseAuth;
+    private final UserRepository userRepository;
 
 
     //질문답변 전체 조회
@@ -31,8 +38,12 @@ public class QuestionsController {
 
     //질문
     @PostMapping("/asking-write")
-    public ResponseEntity<QuestionResponseDto> QuestionWrite(@RequestBody QuestionRequestDto requestDto){
-        return ResponseEntity.ok(questionsService.qwrite(requestDto));
+    public ResponseEntity<QuestionResponseDto> QuestionWrite(@RequestBody QuestionRequestDto requestDto,@RequestHeader(value = "Authorization") String authHeader) throws FirebaseAuthException {
+        String idToken = authHeader.split("Bearer ")[1];
+        FirebaseToken user = firebaseAuth.getInstance().verifyIdToken(idToken);
+        String email = user.getEmail();
+        Users users = userRepository.findByEmail(email);
+        return ResponseEntity.ok(questionsService.qwrite(requestDto,users));
     }
     @PatchMapping("/edit/{id}")
     public ResponseEntity<QuestionResponseDto> updateWrite(@PathVariable Long id, @RequestBody QuestionRequestDto requestDto) {
@@ -46,11 +57,15 @@ public class QuestionsController {
     }
     //답변
     @PostMapping("/answer-write")
-    public ResponseEntity<AnswerResponseDto> AnswerWrite(@RequestBody AnswerRequestDto requestDto){
-        return ResponseEntity.ok(answersService.awrite(requestDto));
+    public ResponseEntity<AnswerResponseDto> AnswerWrite(@RequestBody AnswerRequestDto requestDto,@RequestHeader(value = "Authorization") String authHeader) throws FirebaseAuthException {
+        String idToken = authHeader.split("Bearer ")[1];
+        FirebaseToken user = firebaseAuth.getInstance().verifyIdToken(idToken);
+        String email = user.getEmail();
+        Users users = userRepository.findByEmail(email);
+        return ResponseEntity.ok(answersService.awrite(requestDto,users));
     }
     @PatchMapping("/answer-edit/{id}")
-    public ResponseEntity<AnswerResponseDto> updateAWrite(@PathVariable Long id, @RequestBody AnswerRequestDto requestDto) {
+    public ResponseEntity<AnswerResponseDto> updateAWrite(@PathVariable Long id, @RequestBody AnswerRequestDto requestDto,@RequestHeader(value = "Authorization") String authHeader) {
         AnswerResponseDto updatedAWrite = answersService.updateAWrite(id, requestDto);
         return ResponseEntity.ok(updatedAWrite);
     }

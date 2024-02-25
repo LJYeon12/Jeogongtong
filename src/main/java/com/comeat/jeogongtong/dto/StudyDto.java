@@ -22,6 +22,7 @@ public class StudyDto {
     private String intro;
 
     private LocalDate createdTime;
+
 //    private LocalDateTime studyUpdatedTime;
     public static StudyDto toStudyDto(StudyEntity studyEntity) {
         StudyDto studyDto = new StudyDto();

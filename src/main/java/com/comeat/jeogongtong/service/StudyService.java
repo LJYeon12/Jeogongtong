@@ -1,7 +1,9 @@
 package com.comeat.jeogongtong.service;
 
 //import com.comeat.jeogongtong.study.StudyRepository;
+import com.comeat.jeogongtong.dto.QuestionResponseDto;
 import com.comeat.jeogongtong.dto.RegistRequestDto;
+import com.comeat.jeogongtong.dto.RegistResponseDto;
 import com.comeat.jeogongtong.model.Users;
 import com.comeat.jeogongtong.dto.StudyDto;
 import com.comeat.jeogongtong.model.StudyEntity;
@@ -24,22 +26,23 @@ public class StudyService {
     private final StudyRepository studyRepository; //기능 구현 자체에는 문제 없음
     private final StudyMemberRepository studyMemberRepository;
     private final UserService userService;
-    public void regist(RegistRequestDto registRequestDto, Long userId) {
+
+    public void regist(RegistRequestDto registRequestDto)  { //Long userId
         StudyEntity studyEntity = StudyEntity.tostudyEntity(registRequestDto);
         studyRepository.save(studyEntity); //자동으로 스터디 레포지토리에 상속
         //현재 로그인한 사용자의 Users 조회
-        Users Users = userService.findUsersById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID : " + userId));
+//        Users Users = userService.findUsersById(userId)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID : " + userId));
 
         // 스터디 멤버 엔티티 생성 및 설정
-        StudyMemberEntity studyMemberEntity = new StudyMemberEntity();
-        studyMemberEntity.setUser(Users);
-        studyMemberEntity.setStudy(studyEntity);
-        studyMemberEntity.setWeektime(0L);
-        studyMemberEntity.setRank(1); //수정해야됨
-        studyMemberEntity.setState("방장");
+//        StudyMemberEntity studyMemberEntity = new StudyMemberEntity();
+//        studyMemberEntity.setUser(Users);
+//        studyMemberEntity.setStudy(studyEntity);
+//        studyMemberEntity.setWeektime(0L);
+//        studyMemberEntity.setRank(1); //수정해야됨
+//        studyMemberEntity.setState("방장");
 
-        studyMemberRepository.save(studyMemberEntity);
+//        studyMemberRepository.save(studyMemberEntity);
     }
 
 

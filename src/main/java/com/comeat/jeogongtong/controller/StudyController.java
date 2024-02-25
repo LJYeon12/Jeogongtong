@@ -1,10 +1,10 @@
 package com.comeat.jeogongtong.controller;
 
-import com.comeat.jeogongtong.dto.ApplyResponseDto;
-import com.comeat.jeogongtong.dto.RegistRequestDto;
-import com.comeat.jeogongtong.dto.StudyDto;
+import com.comeat.jeogongtong.dto.*;
+import com.comeat.jeogongtong.model.Questions;
+import com.comeat.jeogongtong.model.StudyEntity;
+import com.comeat.jeogongtong.model.Users;
 import com.comeat.jeogongtong.service.StudyService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,13 @@ public class StudyController {
     private final StudyService studyService;
 
     @PostMapping("/regist")
-    public ResponseEntity<String> regist(@RequestBody RegistRequestDto registRequestDto, HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 후 스터디 등록이 가능합니다");
-        }
-        studyService.regist(registRequestDto, userId);
+    public ResponseEntity<String> regist(@RequestBody RegistRequestDto registRequestDto) {
+        //Long userId = (Long) session.getAttribute("userId");
+        //if (userId == null) {
+        //    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 후 스터디 등록이 가능합니다");
+        //}
+        //studyService.regist(registRequestDto,userId);
+        studyService.regist(registRequestDto);
         return ResponseEntity.ok("스터디 등록 완료");
     }
 
