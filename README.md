@@ -40,7 +40,7 @@ img
 <br/>
 ![로그인](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/9147bafc-02d3-4694-9c5f-f7503feeb222)
 
-
+![타이머](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/cd85541f-bdef-4890-93c8-50db0d20a51d)
 
 ## 📲  Execution Method
 
