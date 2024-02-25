@@ -30,8 +30,17 @@ img
  
  
 ## 📸  Feature Screen shots
-
+### App Feature Overview
+- login (google, kakao)
+- study regist & apply
+- Show Resturants near by user
+- Order food for packing
+- Write review
+- See the recap
 <br/>
+![로그인](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/9147bafc-02d3-4694-9c5f-f7503feeb222)
+
+
 
 ## 📲  Execution Method
 
