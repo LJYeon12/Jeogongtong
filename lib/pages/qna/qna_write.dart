@@ -98,9 +98,9 @@ class _QnaWritePageState extends State<QnaWritePage> {
       category: _selectedCategory,
       title: _titleController.text,
       content: _contentController.text,
-      //regidate: formattedDate,
-      //photoUrl: "22",
-      users: uusers,
+      regiDate: formattedDate,
+      photoUrl: "22",
+      //users: uusers,
     );
     try {
       http.Response response = await qnaQuestionApiService.askingWrite(post);

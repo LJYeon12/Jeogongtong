@@ -2,50 +2,51 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Post extends Equatable {
-  final String? title;
+  final String title;
   final String content;
-  final Map<String, dynamic> users;
+  //final Map<String, dynamic> users;
   final String category;
-  //final String regidate;
-  //final String photoUrl;
+  final String regiDate;
+  final String photoUrl;
 
-  const Post({
-    required this.title,
-    required this.content,
-    required this.users,
-    required this.category,
-  });
-  //required this.regidate,
-  //required this.photoUrl});
+  const Post(
+      {required this.title,
+      required this.content,
+      //required this.users,
+      required this.category,
+      required this.regiDate,
+      required this.photoUrl});
 
   @override
   List<Object?> get props =>
-      [title, content, users, category]; //regidate, photoUrl];
+      [title, content, category, regiDate, photoUrl]; //users];
 
   Post copyWith({
     String? title,
     String? content,
-    Map<String, dynamic>? users,
+    String? regiDate,
+    //Map<String, dynamic>? users,
     String? category,
+    String? photoUrl,
   }) {
     return Post(
       title: title ?? this.title,
       content: content ?? this.content,
-      users: users ?? this.users,
+      //users: users ?? this.users,
       category: category ?? this.category,
-      //regidate: regidate ?? this.regidate,
-      //photoUrl: photoUrl ?? this.photoUrl,
+      regiDate: regiDate ?? this.regiDate,
+      photoUrl: photoUrl ?? this.photoUrl,
     );
   }
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-      title: map['title'] as String?,
+      title: map['title'] as String,
       content: map['content'] as String,
-      users: map['users'] as Map<String, dynamic>,
+      //users: map['users'] as Map<String, dynamic>,
       category: map['category'] as String,
-      //regidate: map['regidate'] as String,
-      //photoUrl: map['photoUrl'] as String,
+      regiDate: map['regiDate'] as String,
+      photoUrl: map['photoUrl'] as String,
     );
   }
 
@@ -53,10 +54,10 @@ class Post extends Equatable {
     return {
       'title': title,
       'content': content,
-      'users': users,
+      //'users': users,
       'category': category,
-      //'regidate': regidate,
-      //'photoUrl': photoUrl
+      'regiDate': regiDate,
+      'photoUrl': photoUrl
     };
   }
 

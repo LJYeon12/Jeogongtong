@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/models/post.dart';
+import 'package:provider/provider.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 
@@ -23,15 +24,20 @@ class QnaQuestionApiService {
 
     try {
       http.Response response = await httpClient.post(uri,
-          body: jsonEncode(post),
+          body: post.toJson(),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $idToken'
           });
+      print(response.body);
       return response;
     } catch (e) {
       rethrow;
     }
+  }
+
+  void dispose() {
+    httpClient.close();
   }
 
   //<질문방> 질문 수정

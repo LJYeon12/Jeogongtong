@@ -24,7 +24,7 @@ class _RoomPageState extends State<RoomPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
-              "알고리즘",
+              "n번째 스터디",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,

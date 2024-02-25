@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jeogongtong_front/widgets/grade_theme.dart';
 
 class Answerpaper extends StatelessWidget {
   final String content;
@@ -15,6 +16,39 @@ class Answerpaper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 33),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "Q. $content",
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(height: 12),
+          Text(
+            category,
+            style: TextStyle(fontSize: 12, color: Color(0xffFC9AB8)),
+          ),
+          Row(
+            children: [
+              Text(
+                user,
+                style: TextStyle(fontSize: 12),
+              ),
+              Icon(
+                Icons.local_police,
+                color: ColorStyles.Silver,
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -163,6 +163,10 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
   @override
   Widget build(BuildContext context) {
     Color _buttonColor = const Color(0xff131214);
+
+    //
+    List<String> nick = ["1. Danny", "2. 우유", "3. 김병철", "4. 코밋", "5. 아아"];
+    List<int> count = [14580, 12934, 9823, 3248, 0];
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -283,7 +287,8 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
                   itemCount: _nickname.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      titleTextStyle: TextStyle(fontSize: 16),
+                      titleTextStyle:
+                          TextStyle(fontSize: 16, color: Colors.black),
                       leadingAndTrailingTextStyle:
                           TextStyle(fontSize: 16, color: Color(0xffFC9AB8)),
                       contentPadding:

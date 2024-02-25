@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
 import 'package:jeogongtong_front/pages/home/home_search_page.dart';
-import 'package:jeogongtong_front/pages/qna/qna_answer.dart';
+import 'package:jeogongtong_front/pages/qna/qna_answer_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_search_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_write.dart';
 import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
@@ -126,13 +126,8 @@ class _QnAPageState extends State<QnAPage> {
                     children: _tempData.map((category) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => QnAAnswerPage()),
-                          );
-                        },
-                        child: Text(category)),
+                    child:
+                        ElevatedButton(onPressed: () {}, child: Text(category)),
                   );
                 }).toList()),
               ),
@@ -204,16 +199,25 @@ class _QnAPageState extends State<QnAPage> {
 
               Column(
                 children: [
-                  Text(_pageContent.toString()),
                   QuestionCard(
-                    nickname: "김ㅇㅇ",
-                    title: "Q.코딩 문제 도와주세요.",
-                    commentCount: "2",
+                    nickname: "김나연",
+                    title: "Q. 코딩 문제 도와주세요.",
+                    commentCount: "0",
                   ),
                   QuestionCard(
                     nickname: "박ㅇㅇ",
-                    title: "Q.영어 문제 도와주세요.",
-                    commentCount: "7",
+                    title: "Q. 영어 문제 도와주세요.",
+                    commentCount: "3",
+                  ),
+                  QuestionCard(
+                    nickname: "고양이",
+                    title: "Q. 이것은 매우 어려운 문제이다.",
+                    commentCount: "1",
+                  ),
+                  QuestionCard(
+                    nickname: "안녕하세요",
+                    title: "Q. 수능 기출 22번 문제",
+                    commentCount: "2",
                   ),
                 ],
               ),

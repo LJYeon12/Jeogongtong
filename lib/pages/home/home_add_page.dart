@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/constants/api.dart';
+import 'package:jeogongtong_front/models/add.dart';
 import 'package:jeogongtong_front/widgets/count_button.dart';
 
 final user = FirebaseAuth.instance.currentUser;
@@ -20,6 +21,18 @@ class HomeAddPage extends StatefulWidget {
 }
 
 class _HomeAddPageState extends State<HomeAddPage> {
+  final TextEditingController _introController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _bookController = TextEditingController();
+
+  @override
+  void dispose() {
+    _bookController.dispose();
+    _introController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
   //드롭다운 버튼
   Color _buttonColor1 = const Color(0xff131214);
   Color _buttonColor2 = const Color(0xff131214);
@@ -52,25 +65,11 @@ class _HomeAddPageState extends State<HomeAddPage> {
   ];
   String setting_period = "";
 
-  //텍스트 폼 필드
-  final formKey = GlobalKey<FormState>();
-  String study_name = '';
-  String intro = '';
-  String book = '';
-
   //카운트 버튼
   int ranker_ask = 0;
   int ranker_answer = 0;
 
-  //late UserRoom currentUser;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
 //POST
-  final client = http.Client();
   Future<void> _sendData() async {
     final Uri uri = Uri(
       scheme: 'http',
@@ -84,33 +83,25 @@ class _HomeAddPageState extends State<HomeAddPage> {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $idToken' // UTF-8 컨텐츠 타입 헤더 추가
     };
-
-    final data = {
-      'intro': intro,
-      'category': catalog,
-      'settingPeriod': setting_period,
-      'name': study_name,
-      'book': book,
-      'rankerAsk': ranker_ask,
-      'rankerAnswer': ranker_answer,
-      'users': widget.user,
-    };
+    Add add = Add(
+        intro: _introController.text,
+        category: catalog,
+        settingPeriod: setting_period,
+        name: _nameController.text,
+        book: _bookController.text,
+        rankerAnswer: ranker_answer,
+        rankerAsk: ranker_ask);
     try {
       final response =
-          await client.post(uri, headers: headers, body: jsonEncode(data));
+          await http.Client().post(uri, headers: headers, body: add.toJson());
       if (response.statusCode == 200) {
         print('Data sent successfully: ${response.body}');
-        print(data);
       } else {
         print('Failed to send data. Error code: ${response.statusCode}');
       }
     } catch (e) {
       rethrow;
     }
-  }
-
-  void disposeClient() {
-    client.close();
   }
 
   void _showSnackbar(BuildContext context) {
@@ -184,15 +175,10 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   constraints: const BoxConstraints(),
                   child: TextButton(
                     onPressed: () async {
-                      if (formKey.currentState != null) {
-                        if (formKey.currentState!.validate()) {
-                          //formKey.currentState!.save();
-                          await _sendData();
-                          if (context.mounted) {
-                            _showSnackbar(context);
-                            Navigator.pop(context);
-                          }
-                        }
+                      await _sendData();
+                      if (context.mounted) {
+                        _showSnackbar(context);
+                        Navigator.pop(context);
                       }
                     },
                     child: Text("완료",
@@ -298,287 +284,234 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Container(
-                  child: Form(
-                    key: formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Column(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    children: [
+                      TextField(
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                        controller: _nameController,
+                        autofocus: false,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          isDense: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffE3E5E5)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffFC9AB8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          hintText: "제목을 입력하세요.",
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Row(
                         children: [
-                          TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp('[a-zA-Zㄱ-ㅎ가-힣0-9]'),
-                              ),
-                            ],
-                            maxLength: 20,
-                            decoration: InputDecoration(
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              hintText: "제목을 입력하세요",
-                              hintStyle: const TextStyle(fontSize: 16),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffE3E5E5))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
+                          Text(
+                            "방 공지사항",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
-                            onSaved: (value) {
-                              setState(() {
-                                study_name = value!;
-                              });
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return '1자 이상 입력해주세요.';
-                              } else if (value.length > 20) {
-                                return '20자 이하로 입력해주세요.';
-                              }
-                              return null;
-                            },
-                          ),
-                          const Row(
-                            children: [
-                              Text(
-                                "방 공지사항",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            minLines: 5,
-                            maxLines: 5,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp('[a-zA-Zㄱ-ㅎ가-힣0-9]'),
-                              ),
-                            ],
-                            decoration: InputDecoration(
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              hintText: "공지사항을 입력하세요",
-                              hintStyle: const TextStyle(fontSize: 16),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffE3E5E5))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 10),
-                            ),
-                            onSaved: (value) {
-                              setState(() {
-                                intro = value!;
-                              });
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return '1자 이상 작성해주세요.';
-                              } else if (value.length > 100) {
-                                return '100자 이내로 작성해주세요.';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 16),
-                          const Row(
-                            children: [
-                              Text(
-                                "사용할 책",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp('[a-zA-Zㄱ-ㅎ가-힣0-9]'),
-                              ),
-                            ],
-                            decoration: InputDecoration(
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              hintText: "사용할 책을 입력하세요",
-                              hintStyle: const TextStyle(fontSize: 16),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffE3E5E5))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFC9AB8))),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
-                            ),
-                            onSaved: (value) {
-                              setState(() {
-                                book = value!;
-                              });
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return '1자 이상 입력해주세요.';
-                              } else if (value.length > 20) {
-                                return '20자 이하로 입력해주세요.';
-                              }
-                              return null;
-                            },
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "스터디방 마감 기한",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      buttonStyleData: ButtonStyleData(
-                        height: 48,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: const Color(0xffE3E5E5),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 150,
+                        child: TextField(
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                          controller: _introController,
+                          maxLines: null,
+                          expands: true,
+                          autofocus: false,
+                          decoration: const InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 24),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xffE3E5E5)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                )),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xffFC9AB8)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
+                            hintText: "공지사항을 입력하세요.",
+                            hintStyle: TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
-                      iconStyleData: const IconStyleData(
-                        icon: Icon(Icons.keyboard_arrow_down_rounded),
-                        iconSize: 24,
+                      const SizedBox(height: 16),
+                      const Row(
+                        children: [
+                          Text(
+                            "사용할 책",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      dropdownStyleData: const DropdownStyleData(
-                          maxHeight: 210,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          )),
-                      hint: const Text(
-                        "마감 기한을 선택하세요",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      value: setting_period.isNotEmpty ? setting_period : null,
-                      items: _deadlineList
-                          .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(
-                                e,
-                                style: const TextStyle(fontSize: 16),
-                              )))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            setting_period = value!;
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    children: [
-                      Text(
-                        "랭커 의무 질답(주 기준)",
-                        textAlign: TextAlign.left,
+                      const SizedBox(height: 16),
+                      TextField(
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        ),
+                        controller: _bookController,
+                        autofocus: false,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          isDense: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffE3E5E5)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffFC9AB8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          hintText: "사용할 책을 입력하세요.",
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Text(
+                            "스터디방 마감 기한",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          buttonStyleData: ButtonStyleData(
+                            height: 48,
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: const Color(0xffE3E5E5),
+                              ),
+                            ),
+                          ),
+                          iconStyleData: const IconStyleData(
+                            icon: Icon(Icons.keyboard_arrow_down_rounded),
+                            iconSize: 24,
+                          ),
+                          dropdownStyleData: const DropdownStyleData(
+                              maxHeight: 210,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              )),
+                          hint: const Text(
+                            "마감 기한을 선택하세요",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          value:
+                              setting_period.isNotEmpty ? setting_period : null,
+                          items: _deadlineList
+                              .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(
+                                    e,
+                                    style: const TextStyle(fontSize: 16),
+                                  )))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(
+                              () {
+                                setting_period = value!;
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Text(
+                            "랭커 의무 질답(주 기준)",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Column(children: [
+                        Row(
+                          children: [
+                            const Text(
+                              "질문",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(width: 13),
+                            CountButton(
+                              counter: ranker_ask,
+                            ),
+                            const SizedBox(width: 13),
+                            const Text(
+                              "회,",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        )
+                      ]),
+                      const SizedBox(height: 16),
+                      Column(children: [
+                        Row(
+                          children: [
+                            const Text(
+                              "답변",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(width: 13),
+                            CountButton(counter: ranker_answer),
+                            const SizedBox(width: 13),
+                            const Text(
+                              "회",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        )
+                      ]),
+                      const SizedBox(height: 28),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(children: [
-                    Row(
-                      children: [
-                        const Text(
-                          "질문",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(width: 13),
-                        CountButton(
-                          counter: ranker_ask,
-                        ),
-                        const SizedBox(width: 13),
-                        const Text(
-                          "회,",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    )
-                  ]),
-                ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(children: [
-                    Row(
-                      children: [
-                        const Text(
-                          "답변",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(width: 13),
-                        CountButton(counter: ranker_answer),
-                        const SizedBox(width: 13),
-                        const Text(
-                          "회",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    )
-                  ]),
-                ),
-                const SizedBox(height: 28),
               ],
             ),
           ),
