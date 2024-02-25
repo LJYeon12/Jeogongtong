@@ -22,14 +22,10 @@ public class QuestionsService {
     @Transactional
     public QuestionResponseDto qwrite(QuestionRequestDto requestDto, Users users){
         Questions questions = requestDto.toEntity();
-        Questions savedQuestion = questionsRepository.save(questions);
+        users.addPoints(100); // 사용자 포인트 100 증가
+        userRepository.save(users); // 변경된 사용자 정보 저장
 
-        // 답변을 올린 사용자의 포인트를 100 증가시킴
-        Users user = savedQuestion.getUsers(); // 질문을 올린 사용자 정보 가져오기
-        user.addPoints(100); // 사용자 포인트 100 증가
-        userRepository.save(user); // 변경된 사용자 정보 저장
-
-        return QuestionResponseDto.of(savedQuestion);
+        return QuestionResponseDto.of(questions);
     }
 
     @Transactional

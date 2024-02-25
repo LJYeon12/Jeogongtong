@@ -12,6 +12,7 @@ import com.comeat.jeogongtong.model.StudyMemberEntity;
 import com.comeat.jeogongtong.repository.StudyMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class StudyService {
     private final StudyMemberRepository studyMemberRepository;
     private final UserService userService;
 
+    @Transactional
     public void regist(RegistRequestDto registRequestDto)  { //Long userId
         StudyEntity studyEntity = StudyEntity.tostudyEntity(registRequestDto);
         studyRepository.save(studyEntity); //자동으로 스터디 레포지토리에 상속

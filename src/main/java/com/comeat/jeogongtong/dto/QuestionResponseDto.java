@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class QuestionResponseDto {
-    private Long id;
     private String title;
     private String content;
     private String category;
@@ -22,7 +21,7 @@ public class QuestionResponseDto {
 
     public static QuestionResponseDto of(Questions questions) {
         return QuestionResponseDto.builder()
-                .id(questions.getId())
+                .title(questions.getTitle())
                 .content(questions.getContent())
                 .category(questions.getCategory())
                 .regiDate(questions.getRegiDate())
