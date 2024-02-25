@@ -42,7 +42,7 @@ class _SearchNowPageState extends State<SearchNowPage> {
         print(searchResults);
       });
     } else {
-      Center(child: Text("찾으시는 질문이 없습니다"));
+      print('없음');
     }
   }
 

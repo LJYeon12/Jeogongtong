@@ -69,7 +69,41 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
       });
       print(nickname);
     } else {
-      throw Exception('Failed!');
+      print('오류');
+    }
+  }
+
+  //put
+  Future<void> updateWeektime() async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/api/timer/${widget.studyId}/end',
+    );
+
+    final String? idToken = await user?.getIdToken();
+    try {
+      final response = await http.put(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${idToken}'
+        },
+        body: jsonEncode({
+          "userId": widget.userId,
+          "studyId": widget.studyId,
+          "weektime": seconds
+        }),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        print('Weektime updated successfully.');
+      } else {
+        print('Failed to update weektime: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error updating weektime: $e');
     }
   }
 
@@ -213,6 +247,7 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
                           onPressed: () {
                             if (isTimerRunning) {
                               _pauseTimer();
+                              updateWeektime();
                               _showAlertDialog(context);
                             } else {
                               _startTimer();
@@ -238,7 +273,7 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
                 child: const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "순위",
+                    "순위(주간 시간이 표시됩니다)",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),

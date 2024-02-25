@@ -100,6 +100,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
           await client.post(uri, headers: headers, body: jsonEncode(data));
       if (response.statusCode == 200) {
         print('Data sent successfully: ${response.body}');
+        print(data);
       } else {
         print('Failed to send data. Error code: ${response.statusCode}');
       }
@@ -185,10 +186,10 @@ class _HomeAddPageState extends State<HomeAddPage> {
                     onPressed: () async {
                       if (formKey.currentState != null) {
                         if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
+                          //formKey.currentState!.save();
                           await _sendData();
                           if (context.mounted) {
-                            //_showSnackbar(context);
+                            _showSnackbar(context);
                             Navigator.pop(context);
                           }
                         }

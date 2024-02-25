@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:jeogongtong_front/models/post.dart';
 import 'package:jeogongtong_front/pages/home/home_search_page.dart';
+import 'package:jeogongtong_front/pages/qna/qna_answer.dart';
 import 'package:jeogongtong_front/pages/qna/qna_search_page.dart';
 import 'package:jeogongtong_front/pages/qna/qna_write.dart';
 import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
@@ -125,8 +126,13 @@ class _QnAPageState extends State<QnAPage> {
                     children: _tempData.map((category) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child:
-                        ElevatedButton(onPressed: () {}, child: Text(category)),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => QnAAnswerPage()),
+                          );
+                        },
+                        child: Text(category)),
                   );
                 }).toList()),
               ),
@@ -224,9 +230,8 @@ class _QnAPageState extends State<QnAPage> {
             height: 48,
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => QnaWritePage()),
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => QnaWritePage()),
                 );
               },
               backgroundColor: Color(0xffFC9AB8),

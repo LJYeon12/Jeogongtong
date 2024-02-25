@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:jeogongtong_front/constants/api.dart';
 import 'package:jeogongtong_front/models/post.dart';
+
+final user = FirebaseAuth.instance.currentUser;
 
 class QnaQuestionApiService {
   final http.Client httpClient = http.Client();
@@ -16,11 +19,15 @@ class QnaQuestionApiService {
       host: apiHost,
       path: '/questions/asking-write',
     );
+    final String? idToken = await user?.getIdToken();
 
     try {
       http.Response response = await httpClient.post(uri,
           body: jsonEncode(post),
-          headers: {'Content-Type': 'application/json'});
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $idToken'
+          });
       return response;
     } catch (e) {
       rethrow;
