@@ -33,10 +33,9 @@ img
 ### App Feature Overview
 - login (google, kakao)
 - study regist & apply
-- Show Resturants near by user
-- Order food for packing
-- Write review
-- See the recap
+- timer
+- Q&A
+- myPage & Point
 <br/>
 
 ![로그인](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/f5cb4e1e-c095-4631-93f3-df6380367c2c)
