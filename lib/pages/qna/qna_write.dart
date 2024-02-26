@@ -33,16 +33,16 @@ class QnaWritePage extends StatefulWidget {
 class _QnaWritePageState extends State<QnaWritePage> {
   Color _buttonColor = const Color(0xff131214);
   final List<String> _category = [
-    "경제/경영",
-    "공무원/고시",
-    "과학/공학",
-    "수학",
-    "어학/어문",
-    "예체능",
-    "입시",
-    "취업",
-    "컴퓨터/IT",
-    "기타"
+    "Arts and PE",
+    "Civil servant/examination",
+    "Economy/Management",
+    "Entrance Exam",
+    "Employment",
+    "IT/Development",
+    "Language",
+    "Math",
+    "Science/Engineering",
+    "etc"
   ];
   String formattedDate = formatDate(DateTime.now());
   late Map<String, dynamic> uusers;
@@ -99,11 +99,12 @@ class _QnaWritePageState extends State<QnaWritePage> {
       title: _titleController.text,
       content: _contentController.text,
       regiDate: formattedDate,
-      photoUrl: "22",
+      photoUrl: '',
       //users: uusers,
     );
     try {
       http.Response response = await qnaQuestionApiService.askingWrite(post);
+      qnaQuestionApiService.dispose();
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('질문을 작성하였습니다')),
@@ -132,7 +133,7 @@ class _QnaWritePageState extends State<QnaWritePage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: const Text(
-              "질문 작성하기",
+              "Question",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -188,7 +189,7 @@ class _QnaWritePageState extends State<QnaWritePage> {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Center(
                       child: Text(
-                        '완료',
+                        'Done',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -231,7 +232,7 @@ class _QnaWritePageState extends State<QnaWritePage> {
                               color: Colors.white,
                             )),
                         hint: const Text(
-                          "카테고리를 선택하세요",
+                          "Select a category",
                           style: TextStyle(fontSize: 16),
                         ),
                         value: _selectedCategory.isNotEmpty
@@ -265,7 +266,7 @@ class _QnaWritePageState extends State<QnaWritePage> {
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       errorBorder: InputBorder.none,
-                      hintText: "제목을 입력하세요.",
+                      hintText: "Please enter a title.",
                       hintStyle: TextStyle(
                           fontSize: 32,
                           color: Color(0xff979C9E),
@@ -285,7 +286,7 @@ class _QnaWritePageState extends State<QnaWritePage> {
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         errorBorder: InputBorder.none,
-                        hintText: "질문을 작성하세요.",
+                        hintText: "Please enter a question.",
                         hintStyle: TextStyle(
                           fontSize: 18,
                           color: Color(0xff979C9E),

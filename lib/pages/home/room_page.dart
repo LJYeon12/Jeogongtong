@@ -24,7 +24,7 @@ class _RoomPageState extends State<RoomPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
-              "n번째 스터디",
+              "Room Management",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -67,7 +67,7 @@ class _RoomPageState extends State<RoomPage> {
             Container(
               alignment: Alignment.center,
               child: Text(
-                "2024.02.03 09:41 AM",
+                "2024.02.26 10:32 AM",
                 style: TextStyle(
                   fontSize: 13,
                   color: Color(0xff979C9E),
@@ -85,7 +85,7 @@ class _RoomPageState extends State<RoomPage> {
                       "assets/images/emoji.svg",
                     ),
                     Text(
-                      "방장",
+                      "Manager",
                       style: TextStyle(
                         fontSize: 14,
                       ),
@@ -100,51 +100,7 @@ class _RoomPageState extends State<RoomPage> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Text(
-                    "이번 주 순위집계입니다. \n1위는 네모, \n2위는 동그라미, \n3위는 방장입니다.",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 40),
-            Text(
-              "2024.02.08 09:41 AM",
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xff979C9E),
-              ),
-            ),
-            SizedBox(height: 13),
-            Row(
-              children: [
-                SizedBox(width: 24),
-                Column(
-                  children: [
-                    SizedBox(height: 68),
-                    SvgPicture.asset(
-                      "assets/images/emoji.svg",
-                    ),
-                    Text(
-                      "방장",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(width: 20),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-                  decoration: BoxDecoration(
-                    color: Color(0xffFC9AB8),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Text(
-                    "동그라미님!\n답변 등록 완료를 내일까지\n마쳐야합니다.\n빨리 답변하세요!",
+                    "WELCOME!\nWe are crew!\nThis is Algorithm study.\nLet's study together.\n-Day routine : \nat least must do 2 hours",
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white,

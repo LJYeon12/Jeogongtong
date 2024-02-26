@@ -131,7 +131,7 @@ class _QnASearchPageState extends State<QnASearchPage> {
                   const ColorFilter.mode(Color(0xffE3E5E5), BlendMode.srcIn),
             ),
             const Text(
-              "궁금한 것을 찾아보세요",
+              "What do you want to know?",
               style: TextStyle(fontSize: 30, color: Color(0xffE3E5E5)),
               textAlign: TextAlign.center,
             )

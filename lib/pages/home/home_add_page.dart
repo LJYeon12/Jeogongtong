@@ -37,16 +37,16 @@ class _HomeAddPageState extends State<HomeAddPage> {
   Color _buttonColor1 = const Color(0xff131214);
   Color _buttonColor2 = const Color(0xff131214);
   final _categoryList = [
-    "경제/경영",
-    "공무원/고시",
-    "과학/공학",
-    "수학",
-    "어학/어문",
-    "예체능",
-    "입시",
-    "취업",
-    "컴퓨터/IT",
-    "기타"
+    "Arts and PE",
+    "Civil servant/examination",
+    "Economy/Management",
+    "Entrance Exam",
+    "Employment",
+    "IT/Development",
+    "Language",
+    "Math",
+    "Science/Engineering",
+    "etc"
   ];
   String catalog = "";
   final _deadlineList = [
@@ -81,7 +81,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
     final String? idToken = await user?.getIdToken();
     final Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $idToken' // UTF-8 컨텐츠 타입 헤더 추가
+      'Authorization': 'Bearer ${idToken}' // UTF-8 컨텐츠 타입 헤더 추가
     };
     Add add = Add(
         intro: _introController.text,
@@ -94,6 +94,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
     try {
       final response =
           await http.Client().post(uri, headers: headers, body: add.toJson());
+      print(add.toJson());
       if (response.statusCode == 200) {
         print('Data sent successfully: ${response.body}');
       } else {
@@ -107,7 +108,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
   void _showSnackbar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('방이 개설되었습니다'),
+        content: Text('Study room has been added'),
       ),
     );
   }
@@ -123,7 +124,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: const Text(
-              "방 개설하기",
+              "Add Study Room",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -181,7 +182,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text("완료",
+                    child: Text("Done",
                         style: TextStyle(fontSize: 18, color: _buttonColor2)),
                   ),
                 ),
@@ -201,7 +202,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   child: Row(
                     children: [
                       Text(
-                        "카테고리",
+                        "Category",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
@@ -237,7 +238,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             color: Colors.white,
                           )),
                       hint: const Text(
-                        "카테고리를 선택하세요",
+                        "Please select a category",
                         style: TextStyle(fontSize: 16),
                       ),
                       value: catalog.isNotEmpty ? catalog : null,
@@ -265,7 +266,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                   child: Row(
                     children: [
                       Text(
-                        "방 제목",
+                        "Title",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
@@ -274,7 +275,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        "(방 정원은 200명으로 제한됩니다.)",
+                        "(Room capacity is limited to 200 people.)",
                         style: TextStyle(
                           fontSize: 13,
                           color: Color(0xff6C7072),
@@ -307,7 +308,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               borderSide: BorderSide(color: Color(0xffFC9AB8)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
-                          hintText: "제목을 입력하세요.",
+                          hintText: "Please enter a title.",
                           hintStyle: TextStyle(
                             fontSize: 16,
                           ),
@@ -317,7 +318,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       const Row(
                         children: [
                           Text(
-                            "방 공지사항",
+                            "Intro",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 16,
@@ -352,7 +353,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                                     BorderSide(color: Color(0xffFC9AB8)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8))),
-                            hintText: "공지사항을 입력하세요.",
+                            hintText: "Please enter your intro.",
                             hintStyle: TextStyle(
                               fontSize: 16,
                             ),
@@ -363,7 +364,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       const Row(
                         children: [
                           Text(
-                            "사용할 책",
+                            "Book",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 16,
@@ -392,7 +393,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                               borderSide: BorderSide(color: Color(0xffFC9AB8)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
-                          hintText: "사용할 책을 입력하세요.",
+                          hintText: "Please enter book.",
                           hintStyle: TextStyle(
                             fontSize: 16,
                           ),
@@ -402,7 +403,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       Row(
                         children: [
                           Text(
-                            "스터디방 마감 기한",
+                            "Study room deadline",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 16,
@@ -435,7 +436,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                                 color: Colors.white,
                               )),
                           hint: const Text(
-                            "마감 기한을 선택하세요",
+                            "Please select a deadline.",
                             style: TextStyle(fontSize: 16),
                           ),
                           value:
@@ -461,7 +462,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                       Row(
                         children: [
                           Text(
-                            "랭커 의무 질답(주 기준)",
+                            "Ranker mandatory \nquestions and answers (weekly)",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 16,
@@ -475,7 +476,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                         Row(
                           children: [
                             const Text(
-                              "질문",
+                              "Questions",
                               style: TextStyle(fontSize: 16),
                             ),
                             const SizedBox(width: 13),
@@ -484,7 +485,7 @@ class _HomeAddPageState extends State<HomeAddPage> {
                             ),
                             const SizedBox(width: 13),
                             const Text(
-                              "회,",
+                              "time(s),",
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
@@ -495,14 +496,14 @@ class _HomeAddPageState extends State<HomeAddPage> {
                         Row(
                           children: [
                             const Text(
-                              "답변",
+                              "Answer",
                               style: TextStyle(fontSize: 16),
                             ),
                             const SizedBox(width: 13),
                             CountButton(counter: ranker_answer),
                             const SizedBox(width: 13),
                             const Text(
-                              "회",
+                              "time(s)",
                               style: TextStyle(fontSize: 16),
                             ),
                           ],

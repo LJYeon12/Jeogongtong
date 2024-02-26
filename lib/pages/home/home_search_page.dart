@@ -131,7 +131,7 @@ class _HomeSearchPageState extends State<HomeSearchPage> {
                   const ColorFilter.mode(Color(0xffE3E5E5), BlendMode.srcIn),
             ),
             const Text(
-              "공부방을 검색해보세요",
+              "Search for a study room",
               style: TextStyle(fontSize: 30, color: Color(0xffE3E5E5)),
               textAlign: TextAlign.center,
             )

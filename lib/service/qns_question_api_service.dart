@@ -29,6 +29,7 @@ class QnaQuestionApiService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $idToken'
           });
+      print(post.toJson());
       print(response.body);
       return response;
     } catch (e) {

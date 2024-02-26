@@ -55,17 +55,17 @@ class _QnAPageState extends State<QnAPage> {
   }
 
   final List<String> _tempData = [
-    "전체",
-    "경제/경영",
-    "공무원/고시",
-    "과학/공학",
-    "수학",
-    "어학/어문",
-    "예체능",
-    "입시",
-    "취업",
-    "컴퓨터/IT",
-    "기타"
+    "All",
+    "Arts and PE",
+    "Civil servant/examination",
+    "Economy/Management",
+    "Entrance Exam",
+    "Employment",
+    "IT/Development",
+    "Language",
+    "Math",
+    "Science/Engineering",
+    "etc"
   ];
   // Post _sendPost(){
 
@@ -83,7 +83,7 @@ class _QnAPageState extends State<QnAPage> {
             title: const Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
-                "질문 답변하기",
+                "Q & A",
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -117,9 +117,11 @@ class _QnAPageState extends State<QnAPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: SingleChildScrollView(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
+              /*
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -134,92 +136,21 @@ class _QnAPageState extends State<QnAPage> {
               const SizedBox(
                 height: 35,
               ),
-              /*
-              FutureBuilder(
-                future: _fetchPageContent(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        '현재 게시된 질문이 없습니다.',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    );
-                  } else {
-                    List<dynamic> studyRooms = snapshot.data as List<dynamic>;
-                    return Column(
-                      children: [
-                        const SizedBox(height: 13),
-                        Expanded(
-                          /*
+              */
+              const SizedBox(height: 13),
+              Expanded(
                 child: ListView.builder(
-                  itemCount: nameExample.length,
+                  shrinkWrap: true,
+                  itemCount: _pageContent.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 24),
-                        title: Text(
-                          nameExample[index],
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RoomPage()));
-                        });
+                    return QuestionCard(
+                      nickname: "${_pageContent[index][3]}",
+                      title: "Q. ${_pageContent[index][2]}",
+                      comment: "${_pageContent[index][5]}",
+                      today: "${_pageContent[index][4]}",
+                    );
                   },
                 ),
-                */
-
-                          child: ListView.builder(
-                            itemCount: studyRooms.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 24),
-                                  title: Text(
-                                    studyRooms[index],
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  onTap: () {
-                                    //studyId: selectedStudyId
-                                  });
-                            },
-                          ),
-                        )
-                      ],
-                    );
-                  }
-                },
-              ),
-              */
-
-              Column(
-                children: [
-                  QuestionCard(
-                    nickname: "김나연",
-                    title: "Q. 코딩 문제 도와주세요.",
-                    commentCount: "0",
-                  ),
-                  QuestionCard(
-                    nickname: "박ㅇㅇ",
-                    title: "Q. 영어 문제 도와주세요.",
-                    commentCount: "3",
-                  ),
-                  QuestionCard(
-                    nickname: "고양이",
-                    title: "Q. 이것은 매우 어려운 문제이다.",
-                    commentCount: "1",
-                  ),
-                  QuestionCard(
-                    nickname: "안녕하세요",
-                    title: "Q. 수능 기출 22번 문제",
-                    commentCount: "2",
-                  ),
-                ],
               ),
               const SizedBox(
                 height: 20,
@@ -243,7 +174,7 @@ class _QnAPageState extends State<QnAPage> {
                 borderRadius: BorderRadius.circular(48.0),
               ),
               child: Text(
-                '질문 작성하기',
+                'Question',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,

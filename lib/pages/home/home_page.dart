@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             title: const Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
-                "나의 공부방",
+                "Home",
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
               return const Center(
                 child: Center(
                   child: Text(
-                    '스터디방을 불러오던 중 오류가 났습니다.',
+                    'An error occurred while loading the study room.',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -218,7 +218,7 @@ class _HomePageState extends State<HomePage> {
             } else if ((snapshot.data)!.isEmpty) {
               return const Center(
                 child: Text(
-                  '현재 참여한 스터디방이 없습니다.',
+                  'There are currently no study rooms to participate in.',
                   style: TextStyle(fontSize: 20),
                 ),
               );

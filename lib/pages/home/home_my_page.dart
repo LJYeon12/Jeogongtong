@@ -32,17 +32,17 @@ class _HomeMyPageState extends State<HomeMyPage> {
     switch (grade) {
       case 'ion':
         return ColorStyles.Iron;
-      case 'Bronze':
+      case 'bronze':
         return ColorStyles.Bronze;
-      case 'Silver':
+      case 'silver':
         return ColorStyles.Silver;
-      case 'Gold':
+      case 'gold':
         return ColorStyles.Gold;
-      case 'Platinum':
+      case 'platinum':
         return ColorStyles.Platinum;
-      case 'Diamond':
+      case 'diamond':
         return ColorStyles.Diamond;
-      case 'Legend':
+      case 'legend':
         return ColorStyles.Legend;
       default:
         return Colors.white;
@@ -123,7 +123,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
-              "마이페이지",
+              "My Page",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -199,7 +199,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                         child: Row(
                           children: [
                             Text(
-                              "닉네임",
+                              "Nickname",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -236,7 +236,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                         child: Row(
                           children: [
                             Text(
-                              "등급/포인트",
+                              "Tier/Point",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -278,14 +278,16 @@ class _HomeMyPageState extends State<HomeMyPage> {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => PointPage()),
+                                MaterialPageRoute(
+                                    builder: (context) => PointPage(
+                                        usi: widget.userId, po: _point)),
                                 //builder: (_) => PointPage(score: _score)),
                               );
                             },
                             child: Row(
                               children: [
                                 Text(
-                                  "포인트 지급 내역",
+                                  "Point piggy bank",
                                   style: TextStyle(
                                     color: Color(0xff979C9E),
                                     fontSize: 14,
@@ -312,7 +314,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                         child: Row(
                           children: [
                             Text(
-                              "스터디 랭킹",
+                              "Study ranking",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -339,7 +341,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                                   ),
                                 ),
                                 trailing: Text(
-                                  "${_rank[index]}위",
+                                  "${_rank[index]}",
                                   style: TextStyle(
                                     fontSize: 16,
                                   ),
@@ -360,7 +362,7 @@ class _HomeMyPageState extends State<HomeMyPage> {
                         child: Row(
                           children: [
                             Text(
-                              "내 계정",
+                              "Account",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -394,12 +396,12 @@ class _HomeMyPageState extends State<HomeMyPage> {
                               context
                                   .read<AppAuthProvider.AuthProvider>()
                                   .signout();
-                              print('로그아웃');
+                              print('Logout');
                               Navigator.popUntil(context,
                                   ModalRoute.withName(SignUpPage.routeName));
                             },
                             child: Text(
-                              "로그아웃",
+                              "Logout",
                               style: TextStyle(
                                 color: Color(0xffFC9AB8),
                                 fontSize: 16,

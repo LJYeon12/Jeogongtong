@@ -42,7 +42,7 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
       scheme: 'http',
       port: apiPort,
       host: apiHost,
-      path: '/ranking/${widget.studyId}',
+      path: '/api/timer/ranking/${widget.studyId}',
     );
 
     final String? idToken = await user?.getIdToken();
@@ -53,7 +53,8 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
     print(response.statusCode);
     if (response.statusCode == 200) {
       String responseBody = utf8.decode(response.bodyBytes);
-      List<Map<String, dynamic>> studyroom = jsonDecode(responseBody);
+      List<dynamic> studyroom = jsonDecode(responseBody);
+      print(studyroom);
       final nickname = [];
       final rank = [];
       final weektime = [];
@@ -135,11 +136,12 @@ class _StudyDetailPageState extends State<StudyDetailPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('공부 시간'),
-          content: Text('총 ${_formatTime(seconds)} 동안 공부했습니다!'),
+          title: Text('Study Time'),
+          content: Text(
+              'You studied for ${_formatTime(seconds)} !\nTotal study time this week:${_formatTime(_weektime[0] + seconds)}'),
           actions: <Widget>[
             TextButton(
-              child: Text('확인'),
+              child: Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(

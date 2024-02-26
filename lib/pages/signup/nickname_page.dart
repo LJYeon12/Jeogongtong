@@ -72,11 +72,11 @@ class _NicknamePageState extends State<NicknamePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "환영합니다!",
+                "Welcome!",
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               const Text(
-                "닉네임을 입력하세요.",
+                "Please enter your nickname.",
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -100,7 +100,7 @@ class _NicknamePageState extends State<NicknamePage> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     filled: false,
-                    labelText: '닉네임',
+                    labelText: 'Nickname..',
                   ),
                   textInputAction: TextInputAction.done,
                   validator: (value) {
@@ -131,7 +131,7 @@ class _NicknamePageState extends State<NicknamePage> {
                 borderRadius: BorderRadius.circular(48.0),
               ),
               child: Text(
-                '확인',
+                'OK',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,

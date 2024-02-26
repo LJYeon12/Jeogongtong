@@ -22,7 +22,7 @@ class _HelpPageState extends State<HelpPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: const Text(
-              "도움말",
+              "Help",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -71,7 +71,7 @@ class _HelpPageState extends State<HelpPage> {
                   child: Row(
                     children: [
                       Text(
-                        "승급 기준",
+                        "Tier promotion criteria",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "아이언 : 300p 미만",
+                        "Iron : less than 300p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -110,7 +110,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "브론즈 : 300p ~ 3,999p",
+                        "Bronze : 300p ~ 3,999p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -128,7 +128,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "실버 : 4,000p ~ 8,999p",
+                        "Silver : 4,000p ~ 8,999p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -146,7 +146,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "골드 : 9,000p ~ 19,999p",
+                        "Gold : 9,000p ~ 19,999p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -164,7 +164,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "플래티넘 : 20,000p ~ 59,999p",
+                        "Platinum : 20,000p ~ 59,999p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -182,7 +182,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "다이아몬드 : 60,000p ~ 99,999p",
+                        "Diamond : 60,000p ~ 99,999p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -200,7 +200,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        "레전드 : 100,000p ~ 300,000p",
+                        "Legend : 100,000p ~ 300,000p",
                         style: TextStyle(fontSize: 16),
                       )
                     ],
@@ -218,7 +218,7 @@ class _HelpPageState extends State<HelpPage> {
                   child: Row(
                     children: [
                       Text(
-                        "포인트 지급 기준",
+                        "Point savings standard",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -235,37 +235,37 @@ class _HelpPageState extends State<HelpPage> {
                     children: [
                       SizedBox(height: 10),
                       Text(
-                        "스터디 랭킹에 따라",
+                        "According to study ranking",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "1위는 3000p,",
+                        "1st gets 3000p,",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "2위는 2500p,",
+                        "2nd gets 2500p,",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "3위는 1800p를 지급하며,",
+                        "3rd gets 1800p.",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "스터디 랭커가 아닐 경우 주당 하루 평균 공부 시간에 100을 곱하여 지급합니다.",
+                        "If you are not a study ranker, you will be paid by multiplying the average study time per day per week by 100.",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "또한 질문, 답변을 할 경우 100p를 지급합니다.",
+                        "Also, if you ask or answer a question, you will receive 100p.",
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "주당 하루 평균 공부 시간이 1시간 이하인 회원은 유령 회원으로 집계되어 포인트를 받을 수 없습니다.",
+                        "Members whose average study time per day per week is less than 1 hour are counted as ghost members and cannot receive points.",
                         style: TextStyle(fontSize: 16),
                       ),
                     ],

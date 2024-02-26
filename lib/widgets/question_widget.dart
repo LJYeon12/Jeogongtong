@@ -7,11 +7,13 @@ class QuestionCard extends StatelessWidget {
     Key? key,
     required this.nickname,
     required this.title,
-    required this.commentCount,
+    required this.comment,
+    required this.today,
   }) : super(key: key);
   final String nickname;
   final String title;
-  final String commentCount;
+  final String comment;
+  final String today;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class QuestionCard extends StatelessWidget {
         color: Colors.white,
         child: SizedBox(
           width: 327,
-          height: 144,
+          height: 200,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
@@ -45,20 +47,21 @@ class QuestionCard extends StatelessWidget {
                 Text(title,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  comment,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // const Text("17시간 전"),
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/images/message-circle.svg"),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(commentCount),
-                      ],
-                    )
+                    Text(today),
+                    SvgPicture.asset("assets/images/message-circle.svg")
                   ],
                 ),
                 const SizedBox(height: 14),

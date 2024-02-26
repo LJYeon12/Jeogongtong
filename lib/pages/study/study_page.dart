@@ -74,7 +74,7 @@ class _StudyPageState extends State<StudyPage> {
             title: const Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
-                "공부하기",
+                "Study",
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -92,7 +92,7 @@ class _StudyPageState extends State<StudyPage> {
               return const Center(
                 child: Center(
                   child: Text(
-                    '스터디방을 불러오던 중 오류가 났습니다.',
+                    'An error occurred while loading the study room.',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -100,7 +100,7 @@ class _StudyPageState extends State<StudyPage> {
             } else if ((snapshot.data)!.isEmpty) {
               return const Center(
                 child: Text(
-                  '현재 참여한 스터디방이 없습니다.',
+                  'There are currently no study rooms to participate in.',
                   style: TextStyle(fontSize: 20),
                 ),
               );

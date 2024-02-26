@@ -1,10 +1,19 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeogongtong_front/constants/api.dart';
+import 'package:http/http.dart' as http;
+
+final user = FirebaseAuth.instance.currentUser;
 
 class PointPage extends StatefulWidget {
-  //final int score;
-  //const PointPage({Key? key, required this.score}) : super(key: key);
-  const PointPage({super.key});
+  final int po;
+  final int usi;
+  const PointPage({Key? key, required this.po, required this.usi})
+      : super(key: key);
+  //const PointPage({super.key});
   @override
   State<PointPage> createState() => _PointPageState();
 }
@@ -27,6 +36,38 @@ class _PointPageState extends State<PointPage> {
     "2024년 2월 6일",
     "2024년 2월 6일",
   ];
+
+  //백엔드 연결
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      port: apiPort,
+      host: apiHost,
+      path: '/point/all/${widget.usi}',
+    );
+    final String? idToken = await user?.getIdToken();
+    final response = await http.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${idToken}'
+    });
+    try {
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
+        print(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +126,7 @@ class _PointPageState extends State<PointPage> {
                 children: [
                   Text(
                     //widget.score.toString() + " p",
-                    "내 포인트 : 320 p",
+                    "내 포인트 : ${widget.key} p",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 16,
