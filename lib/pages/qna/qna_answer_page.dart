@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jeogongtong_front/widgets/answer_widget.dart';
+import 'package:jeogongtong_front/widgets/textfield_widget.dart';
 
 class QnAAnswerPage extends StatefulWidget {
   const QnAAnswerPage({super.key});
@@ -10,7 +11,9 @@ class QnAAnswerPage extends StatefulWidget {
 }
 
 class _QnAAnswerPageState extends State<QnAAnswerPage> {
+  final TextEditingController _textController = TextEditingController();
   Color _buttonColor1 = const Color(0xff131214);
+  List<String> _comments = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,7 +25,7 @@ class _QnAAnswerPageState extends State<QnAAnswerPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: const Text(
-              "질문 답변하기",
+              "Q & A",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -59,29 +62,71 @@ class _QnAAnswerPageState extends State<QnAAnswerPage> {
             ),
           ),
         ),
-        body: Column(children: [
-          Answerpaper(
-              content:
-                  "이 문제 어떻게 푸나요... \nprint를 이용해 \"Hello World를 출력하세요.\"\n파이썬 문제입니다.. 도와주세요..",
-              title: "Q.코딩 문제 도와주세요.",
-              category: "컴퓨터/IT",
-              user: "김나연"),
-          Divider(
-            indent: 0,
-            thickness: 15,
-            color: Color(0xffF2F4F5),
-          ),
-          SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 24,
+        body: Column(
+          children: [
+            Answerpaper(
+                content:
+                    "[backend] Spring dependency error invoked like this.\n Plz help me.",
+                title: "Q. Do you know why the dependency error is doing this?",
+                category: "IT/Development",
+                user: "김나연"),
+            Divider(
+              indent: 0,
+              thickness: 15,
+              color: Color(0xffF2F4F5),
             ),
-            child: Text(
-              "답변 0",
-              style: TextStyle(fontSize: 16),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Answer",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
             ),
-          )
-        ]),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _comments.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_comments[index]),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        hintText: 'Answer the question',
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: () {
+                      if (_textController.text.isNotEmpty) {
+                        setState(() {
+                          _comments.add(_textController.text);
+                          _textController.clear();
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

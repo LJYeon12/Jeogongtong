@@ -21,20 +21,20 @@ class PointPage extends StatefulWidget {
 class _PointPageState extends State<PointPage> {
   Color _buttonColor = const Color(0xff131214);
   List<List<dynamic>> listEx = [
-    ["주간 스터디", 45],
-    ["주간 스터디", 40],
-    ["질문 작성", 20],
-    ["질문 답변", 20],
-    ["주간 스터디", 51],
-    ["질문 작성", 20]
+    ["Weekly Study", 200],
+    ["Weekly Study", 250],
+    ["Question", 100],
+    ["Answer", 100],
+    ["Weekly study", 300],
+    ["Question", 100]
   ];
   List<String> dateEx = [
-    "2024년 2월 20일",
-    "2024년 2월 13일",
-    "2024년 2월 11일",
-    "2024년 2월 9일",
-    "2024년 2월 6일",
-    "2024년 2월 6일",
+    "2024-02-20",
+    "2024-02-13",
+    "2024-02-11",
+    "2024-02-09",
+    "2024-02-06",
+    "2024-02-06",
   ];
 
   //백엔드 연결
@@ -80,7 +80,7 @@ class _PointPageState extends State<PointPage> {
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
-              "포인트 지급 내역",
+              "Point piggy bank",
               style: TextStyle(fontSize: 18),
             ),
             leadingWidth: 30,
@@ -126,7 +126,7 @@ class _PointPageState extends State<PointPage> {
                 children: [
                   Text(
                     //widget.score.toString() + " p",
-                    "내 포인트 : ${widget.key} p",
+                    "My point : 1100 p", //${widget.key} p",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 16,

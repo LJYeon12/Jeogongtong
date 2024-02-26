@@ -67,7 +67,7 @@ class _RoomPageState extends State<RoomPage> {
             Container(
               alignment: Alignment.center,
               child: Text(
-                "2024.02.26 10:32 AM",
+                "2024.02.26 10:59 AM",
                 style: TextStyle(
                   fontSize: 13,
                   color: Color(0xff979C9E),
@@ -100,7 +100,7 @@ class _RoomPageState extends State<RoomPage> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Text(
-                    "WELCOME!\nWe are crew!\nThis is Algorithm study.\nLet's study together.\n-Day routine : \nat least must do 2 hours",
+                    "WELCOME!\nWe are crew!\nThis is Korean study.\nLet's study together.\n-Day routine : \nat least must do 1 hours",
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white,

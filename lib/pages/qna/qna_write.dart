@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jeogongtong_front/constants/colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:jeogongtong_front/widgets/bottom_navigator.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 
@@ -107,7 +108,9 @@ class _QnaWritePageState extends State<QnaWritePage> {
       qnaQuestionApiService.dispose();
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('질문을 작성하였습니다')),
+          SnackBar(
+              content:
+                  Text('You whrite a question\nYou save 100p in piggy bank!')),
         );
         // 포스트 성공 시 팝
         Navigator.pop(context);

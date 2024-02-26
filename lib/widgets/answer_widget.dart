@@ -17,18 +17,18 @@ class Answerpaper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 33),
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 12),
           Text(
             "Q. $content",
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 16),
           ),
           SizedBox(height: 12),
           Text(
