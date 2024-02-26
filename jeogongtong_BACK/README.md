@@ -1,4 +1,5 @@
-![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/jeogongtong_BACK/assets/102432331/f697eef7-e7af-4807-a4f7-fe362a5f5cab)
+# Jeogongtong
+![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/7acc52d8-d96b-43f0-89af-1787183ed0a6)
 
 <br/>
 JeoGongTong is an app that provides an environment to study for people who do not have an environment to study or have difficulty studying on their own.
@@ -19,12 +20,11 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 ## 🛠  Project Architecure
 
-![아키텍처2](https://github.com/Comeat-Solution-Challenge-2024/jeogongtong_BACK/assets/105469888/bf16913d-2762-4912-8653-3facd2858dc8)
-
-
+![프로젝트아키텍처](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/fda381d3-1711-41f9-a260-d8d79e3a6f14)
 
 ## 📽  Demo Video Link
 
+ [![Jeogongtong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/7acc52d8-d96b-43f0-89af-1787183ed0a6)](https://youtu.be/yj7ZY4H2og8)
  
  <br/>
 
@@ -34,13 +34,25 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 <br/>
 
-## 📲  Execution Method
+### Login
 
-###  For Android User
+![JeoGongTong (1)](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/fa041304-d20d-4fa3-8d08-ad236ea00177)
+
+### study regist & apply
+![3](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/947f65f6-29e8-4b0b-8c5c-32ff40edd19c)
 
 
-### For iOS User
+![4](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/f1540d7a-8e33-473b-aa8c-4f0a424922a6)
 
+### timer
+![5](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/16ea7d08-2b28-4746-8eb4-a0dc37cffb44)
+
+### Q&A
+
+![JeoGongTong (2)](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/9ea5a608-42b8-4eef-acb4-112ad369be4a)
+
+### myPage & Point & Help
+![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/6eb58286-bd49-4303-a511-0e47c35c478a)
 
 <br/>
 
