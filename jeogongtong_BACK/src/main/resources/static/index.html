@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Google Login Test</title>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" crossorigin="anonymous"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCegHvQKk-9XZEDmHvJo5pjynH_LHRjCN0",
+            authDomain: "jeogongtong.firebaseapp.com",
+            projectId: "jeogongtong",
+            storageBucket: "jeogongtong.appspot.com",
+            messagingSenderId: "1075717257121",
+            appId: "1:1075717257121:android:fbcc5fd643c7db24e6bde0"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+        // 구글 로그인 함수
+    function google() {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // 구글 로그인 성공 시 처리
+                const user = result.user;
+                console.log(user);
+                // 로그인 성공 후 백엔드 API 호출
+                user.getIdToken()
+                    .then(idToken => {
+                        fetch('http://localhost:8080/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + idToken
+                            },
+                            body: JSON.stringify({
+                                idToken: idToken,
+                                nickname: "테스트"
+                            })
+                        })
+                            .then(response => response.text())
+                            .then(data => console.log(data))
+                            .catch(error => console.error('Error:', error));
+                    })
+                    .catch(error => console.error('Error:', error));
+            })
+            .catch((error) => {
+                // 구글 로그인 실패 시 처리
+                console.error(error);
+            });
+    }
+    document.getElementById("signInBtn").addEventListener("click", google);
+
+
+
+
+
+    // Kakao SDK 초기화
+    Kakao.init('18d7013db3d43c0e8fd93e548d53a178');
+
+
+    // 카카오 로그인 버튼 클릭 이벤트 핸들러
+    document.getElementById('signInBtn2').addEventListener('click', function() {
+        // 카카오 로그인 실행
+        Kakao.Auth.login({
+            success: function(authObj) {
+                console.log('카카오 로그인 성공:', authObj);
+
+                // 카카오 Access Token 가져오기
+                const kakaoAccessToken = authObj.access_token;
+
+                // Firebase 커스텀 토큰 생성 요청
+                fetch('http://localhost:8080/login/kakao', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ kakaoAccessToken: kakaoAccessToken })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Firebase 커스텀 토큰:', data);
+                        // 로그인 성공 후 추가 작업 수행
+                        // 예: Firebase 커스텀 토큰을 사용하여 Firebase 인증
+                    })
+                    .catch(error => console.error('Firebase 커스텀 토큰 생성 에러:', error));
+            },
+            fail: function(err) {
+                console.error('카카오 로그인 실패:', err);
+            }
+        });
+    });
+
+
+
+    </script>
+</head>
+<body>
+<h1>Firebase Google Login Test</h1>
+<button id="signInBtn"> Sign in with Google</button>
+<button id="signInBtn2"> Sign in with Kakao</button>
+
+</body>
+</html>
