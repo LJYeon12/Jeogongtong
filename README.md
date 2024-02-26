@@ -53,6 +53,8 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 ### Q&A
 
+![JeoGongTong (2)](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/9ea5a608-42b8-4eef-acb4-112ad369be4a)
+
 ### myPage & Point & Help
 ![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/6eb58286-bd49-4303-a511-0e47c35c478a)
 
