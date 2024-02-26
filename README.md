@@ -20,7 +20,7 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 ## 🛠  Project Architecure
 
-img
+![프로젝트아키텍처](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/fda381d3-1711-41f9-a260-d8d79e3a6f14)
 
 ## 📽  Demo Video Link
 
