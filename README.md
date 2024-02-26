@@ -47,7 +47,8 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 ### timer
 ![5](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/16ea7d08-2b28-4746-8eb4-a0dc37cffb44)
 
-### myPage & Point
+### myPage & Point & Help
+![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/6eb58286-bd49-4303-a511-0e47c35c478a)
 
 ## 📲  Execution Method
 
