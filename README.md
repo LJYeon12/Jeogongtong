@@ -24,18 +24,14 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 ## 📽  Demo Video Link
 
+ [![Jeogongtong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/7acc52d8-d96b-43f0-89af-1787183ed0a6)](https://youtu.be/yj7ZY4H2og8)
  
  <br/>
 
  
  
 ## 📸  Feature Screen shots
-### App Feature Overview
-- login (google, kakao)
-- study regist & apply
-- timer
-- Q&A
-- myPage & Point
+
 <br/>
 
 ### Login
@@ -57,16 +53,6 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 
 ### myPage & Point & Help
 ![JeoGongTong](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/6eb58286-bd49-4303-a511-0e47c35c478a)
-
-
-
-## 📲  Execution Method
-
-###  For Android User
-
-
-### For iOS User
-
 
 <br/>
 
