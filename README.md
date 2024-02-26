@@ -38,9 +38,16 @@ Jeogongtong fosters a community among learners, helping everyone to build knowle
 - myPage & Point
 <br/>
 
-![로그인](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/f5cb4e1e-c095-4631-93f3-df6380367c2c)
+### study regist & apply
+![3](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/947f65f6-29e8-4b0b-8c5c-32ff40edd19c)
 
-![타이머](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/cd85541f-bdef-4890-93c8-50db0d20a51d)
+
+![4](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/f1540d7a-8e33-473b-aa8c-4f0a424922a6)
+
+### timer
+![5](https://github.com/Comeat-Solution-Challenge-2024/Jeogongtong/assets/102432331/16ea7d08-2b28-4746-8eb4-a0dc37cffb44)
+
+### myPage & Point
 
 ## 📲  Execution Method
 
